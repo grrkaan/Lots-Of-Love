@@ -13,6 +13,11 @@ class ViewController: UIViewController {
     let profileBundleView = UIView()
     let bottomStackView = MainBoardBottomStackView()
     
+    var userProfileViewModels : [UserProfileViewModel] = [
+        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImg: "pp-1").userProfileViewModelCreate(),
+        User(userName: "Selman", job: "Javatar", age: 25, profileImg: "pp-2").userProfileViewModelCreate(),
+        User(userName: "Gökçe", job: "Artist", age: 21, profileImg: "pp-3").userProfileViewModelCreate()
+    ]
    
     
     override func viewDidLoad() {
@@ -40,12 +45,18 @@ class ViewController: UIViewController {
     
     func profileViewEdit() {
        
-        (0...10).forEach { (_) in
-            let profileView = MainProfileView(frame: .zero)
-            profileBundleView.addSubview(profileView)
+        userProfileViewModels.forEach { (uvm) in
             
-            profileView.fillSuperView()
+            let profileView = ProfileView(frame: .zero)
+            profileView.profileImg.image = UIImage(named: uvm.viewImg)
+            profileView.lblUserInfos.attributedText = uvm.attrString
+            profileView.lblUserInfos.textAlignment = uvm.infoLocation
+            
+            profileBundleView.addSubview(profileView)
+            profileView.fillSuperView()  
         }
+        
+       
         
     }
     
