@@ -6,11 +6,11 @@
 //
 
 import UIKit
-struct User {
+struct User : ProfileViewModelCreate{
     let userName : String
     let job : String
     let age : Int
-    let profileImg : String
+    let profileImgs : [String]
     
     
     func userProfileViewModelCreate() -> UserProfileViewModel {
@@ -19,6 +19,6 @@ struct User {
         attrText.append(NSAttributedString(string: " \(age)", attributes: [.font : UIFont.systemFont(ofSize: 30, weight: .regular)]))
         attrText.append(NSAttributedString(string: "\n\(job)", attributes: [.font : UIFont.systemFont(ofSize: 20, weight: .regular)]))
         
-        return UserProfileViewModel(attrString: attrText, viewImg: profileImg, infoLocation: .left)
+        return UserProfileViewModel(attrString: attrText, viewImgs: profileImgs, infoLocation: .left)
     }
 }

@@ -13,11 +13,16 @@ class ViewController: UIViewController {
     let profileBundleView = UIView()
     let bottomStackView = MainBoardBottomStackView()
     
-    var userProfileViewModels : [UserProfileViewModel] = [
-        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImg: "pp-1").userProfileViewModelCreate(),
-        User(userName: "Selman", job: "Javatar", age: 25, profileImg: "pp-2").userProfileViewModelCreate(),
-        User(userName: "Gökçe", job: "Artist", age: 21, profileImg: "pp-3").userProfileViewModelCreate()
-    ]
+    var userProfileViewModels : [UserProfileViewModel] = {
+      let profiles = [
+        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImgs: ["pp-1","pp-2"]),
+        User(userName: "Selman", job: "Javatar", age: 25, profileImgs: ["pp-2","pp-2"]),
+        User(userName: "Gökçe", job: "Artist", age: 21, profileImgs: ["pp-3","pp-2","pp-3","pp-2"]),
+        Advertisement(title: "IHS", brandName: "Fcase", posterImgName: "adv-1")
+      ] as [ProfileViewModelCreate]
+   let viewModels = profiles.map({$0.userProfileViewModelCreate() })
+        return viewModels
+    }()
    
     
     override func viewDidLoad() {
@@ -48,10 +53,8 @@ class ViewController: UIViewController {
         userProfileViewModels.forEach { (uvm) in
             
             let profileView = ProfileView(frame: .zero)
-            profileView.profileImg.image = UIImage(named: uvm.viewImg)
-            profileView.lblUserInfos.attributedText = uvm.attrString
-            profileView.lblUserInfos.textAlignment = uvm.infoLocation
-            
+
+            profileView.userViewModel = uvm
             profileBundleView.addSubview(profileView)
             profileView.fillSuperView()  
         }
