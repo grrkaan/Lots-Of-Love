@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
     
     let topStackView = MainBoardTopStackView()
     let profileBundleView = UIView()
@@ -28,10 +28,21 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        topStackView.btnProfile.addTarget(self, action: #selector(btnProfilePressed), for: .touchUpInside)
+        
         layoutEdit()
         profileViewEdit()
         
     }
+    
+    
+    @objc func btnProfilePressed() {
+        let registerController = RegisterController()
+        present(registerController, animated: true, completion: nil)
+        
+    }
+    
     //MARK:- Layout Edit Function
     func layoutEdit() {
         
@@ -40,7 +51,7 @@ class ViewController: UIViewController {
         
         view.addSubview(generalStackView)
         
-        generalStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor)
+        _ = generalStackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor, leading: view.leadingAnchor)
         
         generalStackView.isLayoutMarginsRelativeArrangement = true
         generalStackView.layoutMargins = .init(top: 0, left: 10, bottom: 0, right: 10)

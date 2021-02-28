@@ -8,7 +8,7 @@
 import UIKit
 
 class ProfileView: UIView {
-    
+     
     var userViewModel : UserProfileViewModel! {
         
         didSet{
@@ -59,7 +59,7 @@ class ProfileView: UIView {
         createBarStackView()
         createGradientLayer()
         addSubview(lblUserInfos)
-        lblUserInfos.anchor(top: nil,
+        _ = lblUserInfos.anchor(top: nil,
                             bottom: bottomAnchor,
                             trailing: trailingAnchor,
                             leading: leadingAnchor,
@@ -163,7 +163,7 @@ class ProfileView: UIView {
         
         addSubview(imgBarStackView)
         
-        imgBarStackView.anchor(top: topAnchor, bottom: nil, trailing: trailingAnchor, leading: leadingAnchor,padding: .init(top: 8, left: 8, bottom: 0, right: 8),size: .init(width: 0, height: 4))
+        _ = imgBarStackView.anchor(top: topAnchor, bottom: nil, trailing: trailingAnchor, leading: leadingAnchor,padding: .init(top: 8, left: 8, bottom: 0, right: 8),size: .init(width: 0, height: 4))
         imgBarStackView.spacing = 4
         imgBarStackView.distribution = .fillEqually
         
