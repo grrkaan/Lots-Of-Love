@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		31CA0CE2E5C0C7670F169CEC /* Pods_Kimdir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFF4BF8E71EE756E9C55248 /* Pods_Kimdir.framework */; };
+		321CC05025EBE43500117FBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 321CC04F25EBE43500117FBC /* GoogleService-Info.plist */; };
+		321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321CC05325EBEF6A00117FBC /* Bindable.swift */; };
 		329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B025D990AA002D80CE /* AppDelegate.swift */; };
 		329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B225D990AA002D80CE /* SceneDelegate.swift */; };
 		329B70B525D990AA002D80CE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B425D990AA002D80CE /* MainViewController.swift */; };
@@ -28,6 +30,8 @@
 
 /* Begin PBXFileReference section */
 		1E1F9725212A26F0F9C2FF10 /* Pods-Kimdir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kimdir.debug.xcconfig"; path = "Target Support Files/Pods-Kimdir/Pods-Kimdir.debug.xcconfig"; sourceTree = "<group>"; };
+		321CC04F25EBE43500117FBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		321CC05325EBEF6A00117FBC /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		329B70AD25D990AA002D80CE /* Kimdir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimdir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		329B70B025D990AA002D80CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		329B70B225D990AA002D80CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,7 +72,6 @@
 				1E1F9725212A26F0F9C2FF10 /* Pods-Kimdir.debug.xcconfig */,
 				6663D513E87C386263C0C306 /* Pods-Kimdir.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -104,6 +107,7 @@
 				329B70B925D990AF002D80CE /* Assets.xcassets */,
 				329B70BB25D990AF002D80CE /* LaunchScreen.storyboard */,
 				329B70BE25D990AF002D80CE /* Info.plist */,
+				321CC04F25EBE43500117FBC /* GoogleService-Info.plist */,
 			);
 			path = Kimdir;
 			sourceTree = "<group>";
@@ -122,6 +126,7 @@
 			children = (
 				329B70B425D990AA002D80CE /* MainViewController.swift */,
 				32B2348B25EAB838003D02C7 /* RegisterController.swift */,
+				321CC05325EBEF6A00117FBC /* Bindable.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				329B70BD25D990AF002D80CE /* LaunchScreen.storyboard in Resources */,
+				321CC05025EBE43500117FBC /* GoogleService-Info.plist in Resources */,
 				329B70BA25D990AF002D80CE /* Assets.xcassets in Resources */,
 				329B70B825D990AA002D80CE /* Main.storyboard in Resources */,
 			);
@@ -284,6 +290,7 @@
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,
 				32A35AA925DEF24000200916 /* User.swift in Sources */,
 				32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */,
+				321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */,
 				32B2349625EAFE6F003D02C7 /* RegisterViewModel.swift in Sources */,
 				32B2349325EAC961003D02C7 /* RegisterTextField.swift in Sources */,
 				32C1A74525E64A06004A484D /* Advertisement.swift in Sources */,

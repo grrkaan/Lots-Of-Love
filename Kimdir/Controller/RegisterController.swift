@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
 
-
-class RegisterController: UIViewController {
+class RegisterController: UIViewController{
     
     
     let btnImgSelector : UIButton = {
@@ -21,6 +22,9 @@ class RegisterController: UIViewController {
         btn.backgroundColor = .white
         btn.layer.cornerRadius = 15
         btn.heightAnchor.constraint(equalToConstant: 280).isActive = true
+        btn.imageView?.contentMode = .scaleAspectFill
+        btn.clipsToBounds = true
+        btn.addTarget(self, action: #selector(imgSelectorPressed), for: .touchUpInside)
         
         return btn
         
@@ -67,14 +71,12 @@ class RegisterController: UIViewController {
         btn.setTitle("Register", for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 17,weight: .heavy)
         btn.setTitleColor(#colorLiteral(red: 0.9921568627, green: 0.9098039216, blue: 0.8039215686, alpha: 1), for: .normal)
-        //   btn.backgroundColor = #colorLiteral(red: 0.262745098, green: 0.2078431373, blue: 0.1254901961, alpha: 1)
         btn.layer.cornerRadius = 15
         btn.heightAnchor.constraint(equalToConstant: 45).isActive = true
-        
         btn.backgroundColor = .lightGray
         btn.titleColor(for: .disabled)
         btn.isEnabled = false
-        
+        btn.addTarget(self, action: #selector(registerPressed), for: .touchUpInside)
         
         return btn
     }()
@@ -94,8 +96,9 @@ class RegisterController: UIViewController {
     
     fileprivate func createRegisterViewModelObserver() {
         
-        registerViewModel.textValidationObserver = { (valid) in
-            
+        registerViewModel.bindableTextValidation.asignValue { (valid) in
+
+            guard let valid = valid else { return }
             self.btnRegister.isEnabled = valid
             
             if valid {
@@ -106,6 +109,45 @@ class RegisterController: UIViewController {
                 self.btnRegister.titleColor(for: .disabled)
             }
         }
+        
+        registerViewModel.bindableImg.asignValue { (profileImg) in
+            self.btnImgSelector.setImage(profileImg?.withRenderingMode(.alwaysOriginal), for: .normal)
+        }
+        
+        registerViewModel.bindableRegistering.asignValue { (registering) in
+           
+            if registering == true {
+                self.registerHUD.textLabel.text = "Creating User"
+                self.registerHUD.show(in: self.view)
+            }else {
+                self.registerHUD.dismiss()
+            }
+            
+        }
+    }
+   
+    let registerHUD = JGProgressHUD(style: .light)
+    @objc fileprivate func registerPressed() {
+        
+        self.closeKeyboard()
+        registerViewModel.register { (error) in
+            
+            if let error = error {
+                self.errorNotifyHUD(error: error)
+                return
+            }
+        }
+    }
+
+    
+    fileprivate func errorNotifyHUD(error : Error) {
+        
+        let hud = JGProgressHUD(style: .dark)
+        
+        hud.textLabel.text = "Register Failed"
+        hud.detailTextLabel.text = error.localizedDescription
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 2, animated: true)
     }
     
     @objc fileprivate func catchTextEdit(txtField : UITextField) {
@@ -171,6 +213,10 @@ class RegisterController: UIViewController {
         
         let tolerance = keyboardEndFrame.height - bottomSpace
         
+        if tolerance < 0 {
+            return
+        }
+        
         self.view.transform = CGAffineTransform(translationX: 0, y: -tolerance - 10)
         
     }
@@ -227,6 +273,29 @@ class RegisterController: UIViewController {
         view.layer.addSublayer(gradient)
         gradient.frame = view.bounds
         
+    }
+    
+    
+    @objc fileprivate func imgSelectorPressed() {
+        
+        let imgPickerController = UIImagePickerController()
+        imgPickerController.delegate = self
+        present(imgPickerController, animated: true, completion: nil)
+    }
+    
+}
+
+extension RegisterController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let pickedImg = info[.originalImage] as? UIImage
+        registerViewModel.bindableImg.value = pickedImg
+        dismiss(animated: true, completion: nil)
     }
     
 }
