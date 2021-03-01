@@ -6,14 +6,17 @@
 //
 
 import UIKit
-
+import SDWebImage
 class ProfileView: UIView {
      
     var userViewModel : UserProfileViewModel! {
         
         didSet{
-            let viewImg = userViewModel.viewImgs.first ?? ""
-            profileImg.image = UIImage(named: viewImg)
+            let viewImgUrl = userViewModel.viewImgs.first ?? ""
+            if let url = URL(string : viewImgUrl) {
+                profileImg.sd_setImage(with: url)
+            }
+
             lblUserInfos.attributedText = userViewModel.attrString
             lblUserInfos.textAlignment = userViewModel.infoLocation
             
@@ -31,12 +34,16 @@ class ProfileView: UIView {
     }
     
    fileprivate func setImgViewObserver() {
-    userViewModel.imgIndexObs = { (imgIndex,img) in
+    userViewModel.imgIndexObs = { (imgIndex, imgUrl) in
         self.imgBarStackView.arrangedSubviews.forEach{ (sView) in
             sView.backgroundColor = self.unselectedImgColor
         }
         self.imgBarStackView.arrangedSubviews[imgIndex].backgroundColor = .white
-        self.profileImg.image = img
+        
+        if let url = URL(string: imgUrl ?? "") {
+            self.profileImg.sd_setImage(with: url)
+        }
+        
     }
     }
     
@@ -50,6 +57,17 @@ class ProfileView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        editLayout()
+        
+        let panG = UIPanGestureRecognizer(target: self, action: #selector(profilePanCatch))
+        addGestureRecognizer(panG)
+        
+        let tapG = UITapGestureRecognizer(target: self, action: #selector(profileTapCatch))
+        addGestureRecognizer(tapG)
+    }
+    
+    fileprivate func editLayout() {
+       
         layer.cornerRadius = 10
         clipsToBounds = true
         profileImg.contentMode = .scaleAspectFill
@@ -68,11 +86,6 @@ class ProfileView: UIView {
         lblUserInfos.font = UIFont.systemFont(ofSize: 27,weight: .heavy)
         lblUserInfos.numberOfLines = 0
         
-        let panG = UIPanGestureRecognizer(target: self, action: #selector(profilePanCatch))
-        addGestureRecognizer(panG)
-        
-        let tapG = UITapGestureRecognizer(target: self, action: #selector(profileTapCatch))
-        addGestureRecognizer(tapG)
     }
     
     var imgIndex = 0
@@ -106,7 +119,9 @@ class ProfileView: UIView {
             
         case .ended :
             endSwipeAnimation(panGesture)
-            
+            superview?.subviews.forEach{ (subView) in
+                subView.layer.removeAllAnimations()
+            }
             
         default :
             break

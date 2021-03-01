@@ -24,13 +24,13 @@ class UserProfileViewModel {
         
         didSet {
             
-            let imgName = viewImgs[imgIndex]
-            let profileImg = UIImage(named: imgName)
-            imgIndexObs?(imgIndex, profileImg ?? UIImage())
+            let imgUrl = viewImgs[imgIndex]
+            
+            imgIndexObs?(imgIndex, imgUrl)
         }
     }
     
-    var imgIndexObs : ( (Int, UIImage) -> ())?
+    var imgIndexObs : ( (Int, String?) -> ())?
     
     
      func nextImg(){

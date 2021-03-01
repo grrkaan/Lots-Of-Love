@@ -6,24 +6,28 @@
 //
 
 import UIKit
-
+import Firebase
 class MainViewController: UIViewController {
     
     let topStackView = MainBoardTopStackView()
     let profileBundleView = UIView()
     let bottomStackView = MainBoardBottomStackView()
     
-    var userProfileViewModels : [UserProfileViewModel] = {
-      let profiles = [
-        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImgs: ["pp-1","pp-2"]),
-        User(userName: "Selman", job: "Javatar", age: 25, profileImgs: ["pp-2","pp-2"]),
-        User(userName: "Gökçe", job: "Artist", age: 21, profileImgs: ["pp-3","pp-2","pp-3","pp-2"]),
-        Advertisement(title: "IHS", brandName: "Fcase", posterImgName: "adv-1")
-      ] as [ProfileViewModelCreate]
-   let viewModels = profiles.map({$0.userProfileViewModelCreate() })
-        return viewModels
-    }()
-   
+    var userProfileViewModels = [UserProfileViewModel]()
+    
+    //    var userProfileViewModels : [UserProfileViewModel] = {
+    //      let profiles = [
+    //        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImgs: ["pp-1","pp-2"]),
+    //        User(userName: "Selman", job: "Javatar", age: 25, profileImgs: ["pp-2","pp-2"]),
+    //        Advertisement(title: "IHS", brandName: "Fcase", posterImgName: "adv-1"),
+    //        User(userName: "Gökçe", job: "Artist", age: 21, profileImgs: ["pp-3","pp-2","pp-3","pp-2"]),
+    //        User(userName: "Riri", job: "Singer", age: 33, profileImgs: ["riri-1","riri-2","riri-3","riri-4"])
+    //
+    //      ] as [ProfileViewModelCreate]
+    //   let viewModels = profiles.map({$0.userProfileViewModelCreate() })
+    //        return viewModels
+    //    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +37,27 @@ class MainViewController: UIViewController {
         
         layoutEdit()
         profileViewEdit()
-        
+        getUserDatasFS()
     }
     
+    fileprivate func getUserDatasFS() {
+        
+        let usersQuery = Firestore.firestore().collection("Users")
+        
+        usersQuery.getDocuments { (snapshot , error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            snapshot?.documents.forEach({ (dSnapshot) in
+                let userData = dSnapshot.data()
+                let user = User(datas: userData)
+                self.userProfileViewModels.append(user.userProfileViewModelCreate())
+            })
+            self.profileViewEdit()
+        }
+    }
     
     @objc func btnProfilePressed() {
         let registerController = RegisterController()
@@ -60,17 +82,17 @@ class MainViewController: UIViewController {
     }
     
     func profileViewEdit() {
-       
+        
         userProfileViewModels.forEach { (uvm) in
             
             let profileView = ProfileView(frame: .zero)
-
+            
             profileView.userViewModel = uvm
             profileBundleView.addSubview(profileView)
             profileView.fillSuperView()  
         }
         
-       
+        
         
     }
     
