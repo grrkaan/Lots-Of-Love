@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 class MainViewController: UIViewController {
     
     let topStackView = MainBoardTopStackView()
@@ -14,35 +15,31 @@ class MainViewController: UIViewController {
     let bottomStackView = MainBoardBottomStackView()
     
     var userProfileViewModels = [UserProfileViewModel]()
-    
-    //    var userProfileViewModels : [UserProfileViewModel] = {
-    //      let profiles = [
-    //        User(userName: "Kaan", job: "Computer Engineer", age: 25, profileImgs: ["pp-1","pp-2"]),
-    //        User(userName: "Selman", job: "Javatar", age: 25, profileImgs: ["pp-2","pp-2"]),
-    //        Advertisement(title: "IHS", brandName: "Fcase", posterImgName: "adv-1"),
-    //        User(userName: "Gökçe", job: "Artist", age: 21, profileImgs: ["pp-3","pp-2","pp-3","pp-2"]),
-    //        User(userName: "Riri", job: "Singer", age: 33, profileImgs: ["riri-1","riri-2","riri-3","riri-4"])
-    //
-    //      ] as [ProfileViewModelCreate]
-    //   let viewModels = profiles.map({$0.userProfileViewModelCreate() })
-    //        return viewModels
-    //    }()
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
-        topStackView.btnProfile.addTarget(self, action: #selector(btnProfilePressed), for: .touchUpInside)
-        
+        topStackView.btnProfile.addTarget(self, action: #selector(profileBtnPressed), for: .touchUpInside)
+        bottomStackView.refreshBtn.addTarget(self, action: #selector(refreshBtnPressed), for: .touchUpInside)
         layoutEdit()
-        profileViewEdit()
+        profileViewEditFS()
         getUserDatasFS()
     }
     
+    var lastUserData : User?
     fileprivate func getUserDatasFS() {
+       
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Searching New Profiles"
+        hud.show(in: view)
         
         let usersQuery = Firestore.firestore().collection("Users")
+            .order(by: "UserId")
+            .start(after: [lastUserData?.userId ?? ""])
+            .limit(to: 1)
+        
         
         usersQuery.getDocuments { (snapshot , error) in
             
@@ -51,18 +48,35 @@ class MainViewController: UIViewController {
                 return
             }
             snapshot?.documents.forEach({ (dSnapshot) in
+                hud.dismiss()
                 let userData = dSnapshot.data()
                 let user = User(datas: userData)
                 self.userProfileViewModels.append(user.userProfileViewModelCreate())
+                self.lastUserData = user
+                self.createProfileFromData(user: user)
             })
-            self.profileViewEdit()
+            
         }
     }
     
-    @objc func btnProfilePressed() {
-        let registerController = RegisterController()
-        present(registerController, animated: true, completion: nil)
+    fileprivate func createProfileFromData(user : User) {
+       
+        let pView = ProfileView(frame: .zero)
+        pView.userViewModel = user.userProfileViewModelCreate()
+        profileBundleView.addSubview(pView)
+        pView.fillSuperView()
+    }
+    
+    @objc func profileBtnPressed() {
+      
+        let profileController = ProfileController()
+        let navController = UINavigationController(rootViewController: profileController)
+        present(navController, animated: true)
         
+    }
+    
+    @objc func refreshBtnPressed() {
+        getUserDatasFS()
     }
     
     //MARK:- Layout Edit Function
@@ -81,7 +95,7 @@ class MainViewController: UIViewController {
         
     }
     
-    func profileViewEdit() {
+    func profileViewEditFS() {
         
         userProfileViewModels.forEach { (uvm) in
             

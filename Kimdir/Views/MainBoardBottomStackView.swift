@@ -9,22 +9,30 @@ import UIKit
 
 class MainBoardBottomStackView: UIStackView {
 
+    static func createButton(img : UIImage) -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFill
+        return btn
+    }
+    
+    let refreshBtn = createButton(img: #imageLiteral(resourceName: "yenile"))
+    let disLikeBtn = createButton(img: #imageLiteral(resourceName: "kapat"))
+    let superLikeBtn = createButton(img: #imageLiteral(resourceName: "superLike"))
+    let likeBtn = createButton(img: #imageLiteral(resourceName: "like"))
+    let boostBtn = createButton(img: #imageLiteral(resourceName: "boost"))
+    
+    
     override init(frame : CGRect){
         super.init(frame: frame)
         distribution = .fillEqually
         heightAnchor.constraint(equalToConstant: 80).isActive = true
         
-        
-        let bottomSubViews = [#imageLiteral(resourceName: "yenile"),#imageLiteral(resourceName: "kapat"),#imageLiteral(resourceName: "superLike"),#imageLiteral(resourceName: "like"),#imageLiteral(resourceName: "boost")].map { (img) -> UIView in
-            let button = UIButton(type: .system)
-            button.setImage(img.withRenderingMode(.alwaysOriginal), for: .normal)
-            return button
-            
+
+        [refreshBtn,disLikeBtn,superLikeBtn,likeBtn,boostBtn].forEach { (btn) in
+            self.addArrangedSubview(btn)
         }
         
-        bottomSubViews.forEach { (v)  in
-            addArrangedSubview(v)
-        }
     }
 
     required init(coder: NSCoder) {
