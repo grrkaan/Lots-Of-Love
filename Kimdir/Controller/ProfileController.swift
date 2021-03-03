@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import Firebase
+import JGProgressHUD
+import SDWebImage
 
 class ProfileController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -15,6 +18,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         tableView.backgroundColor = UIColor(white: 0.2, alpha: 1)
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .interactive
+        getUserProfileDatas()
         
     }
     
@@ -50,7 +54,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         imgPickerSV.axis = .vertical
         imgPickerSV.distribution = .fillEqually
         imgPickerSV.spacing = 16
-      
+        
         imgArea.addSubview(imgPickerSV)
         
         _ = imgPickerSV.anchor(top: imgArea.topAnchor,
@@ -64,7 +68,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-      
+        
         if section == 0 {
             return imgArea
         }
@@ -81,10 +85,10 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
             
         case 3 :
             lblTitle.text = "Job"
-       
+            
         case 4 :
             lblTitle.text = "About You"
-        
+            
         default:
             lblTitle.text = "***"
         }
@@ -101,7 +105,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         return 45
     }
     
-  
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
@@ -111,21 +115,29 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ProfileCell(style: .default, reuseIdentifier: nil)
-       
+        
         switch indexPath.section {
         
         case 1 :
             cell.textField.placeholder = "John Doe"
+            cell.textField.text = currentUser?.userName
+            cell.textField.addTarget(self, action: #selector(catchUserNameEdit), for: .editingChanged)
             
         case 2 :
             cell.textField.placeholder = "18"
+            cell.textField.keyboardType = .numberPad
+            if let age = currentUser?.age {
+                cell.textField.text = String(age)
+            }
+            cell.textField.addTarget(self, action: #selector(catchAgeEdit), for: .editingChanged)
             
         case 3 :
             cell.textField.placeholder = "Astronaut"
-       
+            cell.textField.text = currentUser?.job
+            cell.textField.addTarget(self, action: #selector(catchJobEdit), for: .editingChanged)
         case 4 :
             cell.textField.placeholder = "I love to explore planets.How about u?"
-        
+            
         default:
             cell.textField.placeholder = "***"
         }
@@ -138,11 +150,56 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         navigationItem.title = "Profile"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(backBtnPressed))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutBtnPressed))
+        
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutBtnPressed)),
+            UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveBtnPressed))
+        ]
+    }
+    
+    @objc fileprivate func catchUserNameEdit(txtfield : UITextField) {
+        self.currentUser?.userName = txtfield.text
+    }
+    
+    @objc fileprivate func catchAgeEdit(txtfield : UITextField) {
+        self.currentUser?.age = Int(txtfield.text ?? "")
+    }
+    
+    @objc fileprivate func catchJobEdit(txtfield : UITextField) {
+        self.currentUser?.job = txtfield.text
+    }
+    
+    
+    @objc fileprivate func saveBtnPressed() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let datas : [String : Any] = [
+            "UserId" : uid,
+            "UserName" : currentUser?.userName ?? "",
+            "Age" : currentUser?.age ?? -1,
+            "Job" : currentUser?.job ?? "",
+            "ImgUrlFirst" : currentUser?.profileImgUrlFirst ?? "",
+            "ImgUrlScnd" : currentUser?.profileImgUrlScnd ?? "",
+            "ImgUrlThird" : currentUser?.profileImgUrlThird ?? ""
+        ]
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Saving Profile"
+        hud.show(in: view)
+        
+        Firestore.firestore().collection("Users").document(uid).setData(datas) { (error) in
+            hud.dismiss()
+            if let error = error {
+                print(error)
+                return
+            }
+        }
     }
     
     @objc fileprivate func logoutBtnPressed() {
-      
+        
         print("Logout...")
     }
     
@@ -167,8 +224,88 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         imgPickerBtn?.setImage(pickedImg?.withRenderingMode(.alwaysOriginal), for: .normal)
         imgPickerBtn?.imageView?.contentMode = .scaleAspectFill
         dismiss(animated: true)
+        
+        
+        let imgName = UUID().uuidString
+        let ref = Storage.storage().reference(withPath: "/images/\(imgName)")
+        guard let data = pickedImg?.jpegData(compressionQuality: 0.8) else { return }
+        
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading Images"
+        hud.show(in: view)
+        
+        ref.putData(data,metadata: nil) { (nil, error) in
+            
+            if let error = error {
+                hud.dismiss()
+                print(error)
+                return
+            }
+            
+            ref.downloadURL { (url , error) in
+                hud.dismiss()
+                if let error = error {
+                    print(error)
+                    return
+                }
+                
+                if imgPickerBtn == self.imgPickerFirst {
+                    self.currentUser?.profileImgUrlFirst = url?.absoluteString
+                }else if imgPickerBtn == self.imgPickerScnd {
+                    self.currentUser?.profileImgUrlScnd = url?.absoluteString
+                }else {
+                    self.currentUser?.profileImgUrlThird = url?.absoluteString
+                }
+                
+            }
+        }
+        
+        
     }
     
+    var currentUser : User?
+    fileprivate func getUserProfileDatas() {
+        
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        Firestore.firestore().collection("Users").document(uid).getDocument { (snapshot , error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            guard let datas = snapshot?.data() else { return }
+            self.currentUser = User(datas: datas)
+            self.getProfileImg()
+            self.tableView.reloadData()
+        }
+    }
+    
+    fileprivate func getProfileImg() {
+        
+        if let imgUrl = currentUser?.profileImgUrlFirst , let url = URL(string: imgUrl) {
+            SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (img, _, _, _, _, _) in
+                
+                self.imgPickerFirst.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
+        
+        if let imgUrl = currentUser?.profileImgUrlScnd , let url = URL(string: imgUrl) {
+            SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (img, _, _, _, _, _) in
+                
+                self.imgPickerScnd.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
+        
+        if let imgUrl = currentUser?.profileImgUrlThird , let url = URL(string: imgUrl) {
+            SDWebImageManager.shared().loadImage(with: url, options: .continueInBackground, progress: nil) { (img, _, _, _, _, _) in
+                
+                self.imgPickerThird.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
+            }
+        }
+        
+    }
     
 }
 

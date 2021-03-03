@@ -26,7 +26,14 @@ class MainViewController: UIViewController {
         layoutEdit()
         profileViewEditFS()
         getUserDatasFS()
+        
+        //exampleLogin()
     }
+    
+    fileprivate func exampleLogin() {
+        Auth.auth().signIn(withEmail: "kaan@ihs.com", password: "123456", completion: nil)
+    }
+    
     
     var lastUserData : User?
     fileprivate func getUserDatasFS() {
