@@ -28,6 +28,7 @@
 		32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */; };
 		32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */; };
 		32C1A74525E64A06004A484D /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1A74425E64A06004A484D /* Advertisement.swift */; };
+		32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardBottomStackView.swift; sourceTree = "<group>"; };
 		32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardTopStackView.swift; sourceTree = "<group>"; };
 		32C1A74425E64A06004A484D /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
+		32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		6663D513E87C386263C0C306 /* Pods-Kimdir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kimdir.release.xcconfig"; path = "Target Support Files/Pods-Kimdir/Pods-Kimdir.release.xcconfig"; sourceTree = "<group>"; };
 		BEFF4BF8E71EE756E9C55248 /* Pods_Kimdir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kimdir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -161,6 +163,7 @@
 				32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */,
 				32B2349225EAC961003D02C7 /* RegisterTextField.swift */,
 				3226024725EEE0C9004B0F3E /* ProfileCell.swift */,
+				32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				32B2348C25EAB838003D02C7 /* RegisterController.swift in Sources */,
 				32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */,
 				32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */,
+				32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */,
 				3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */,
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,
 				32A35AA925DEF24000200916 /* User.swift in Sources */,

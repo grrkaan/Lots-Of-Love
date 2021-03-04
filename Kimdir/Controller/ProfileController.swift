@@ -89,10 +89,14 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         case 4 :
             lblTitle.text = "About You"
             
+        case 5 :
+            lblTitle.text = "Age Range"
+            
         default:
             lblTitle.text = "***"
         }
         
+        lblTitle.font = UIFont.boldSystemFont(ofSize: 16)
         return lblTitle
     }
     
@@ -107,13 +111,27 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 6
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 0 : 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       
+        if indexPath.section == 5 {
+            let ageCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
+            
+            ageCell.minSlider.addTarget(self, action: #selector(minSliderChanged), for: .valueChanged)
+            ageCell.maxSlider.addTarget(self, action: #selector(maxSliderChanged), for: .valueChanged)
+            ageCell.lblMin.text = "Min \(currentUser?.minAge ?? 18)"
+            ageCell.lblMax.text = "Min \(currentUser?.maxAge ?? 65)"
+            ageCell.minSlider.value = Float(currentUser?.minAge ?? 18)
+            ageCell.maxSlider.value = Float(currentUser?.maxAge ?? 65)
+            return ageCell
+        }
+            
+        
         let cell = ProfileCell(style: .default, reuseIdentifier: nil)
         
         switch indexPath.section {
@@ -142,7 +160,34 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
             cell.textField.placeholder = "***"
         }
         
+        
+        
+        
         return cell
+    }
+    
+    @objc fileprivate func minSliderChanged(slider : UISlider) {
+        editMinMax()
+    }
+    
+    @objc fileprivate func maxSliderChanged(slider : UISlider) {
+        editMinMax()
+    }
+    
+    fileprivate func editMinMax() {
+        
+        guard let ageCell = tableView.cellForRow(at: [5,0]) as? AgeRangeCell else { return }
+        
+        let minAge = Int(ageCell.minSlider.value)
+        var maxAge = Int(ageCell.maxSlider.value)
+        maxAge = max(minAge,maxAge)
+        
+        ageCell.maxSlider.value = Float(maxAge)
+        ageCell.lblMin.text = "Min \(minAge)"
+        ageCell.lblMax.text = "Max \(maxAge)"
+        
+        currentUser?.minAge = minAge
+        currentUser?.maxAge = maxAge
     }
     
     fileprivate func createNavigation() {
@@ -182,7 +227,9 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
             "Job" : currentUser?.job ?? "",
             "ImgUrlFirst" : currentUser?.profileImgUrlFirst ?? "",
             "ImgUrlScnd" : currentUser?.profileImgUrlScnd ?? "",
-            "ImgUrlThird" : currentUser?.profileImgUrlThird ?? ""
+            "ImgUrlThird" : currentUser?.profileImgUrlThird ?? "",
+            "MinAge" : currentUser?.minAge ?? -1,
+            "MaxAge" : currentUser?.maxAge ?? -1
         ]
         
         let hud = JGProgressHUD(style: .dark)

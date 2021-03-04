@@ -14,6 +14,8 @@ struct User : ProfileViewModelCreate{
     var profileImgUrlScnd : String?
     var profileImgUrlThird : String?
     var userId : String
+    var minAge : Int?
+    var maxAge : Int?
     
     init(datas : [String : Any]) {
         self.userName = datas["UserName"] as? String ?? ""
@@ -23,6 +25,8 @@ struct User : ProfileViewModelCreate{
         self.profileImgUrlScnd = datas["ImgUrlScnd"] as? String
         self.profileImgUrlThird = datas["ImgUrlThird"] as? String
         self.userId = datas["UserId"] as? String ?? ""
+        self.minAge = datas["MinAge"] as? Int
+        self.maxAge = datas["MaxAge"] as? Int
     }
    
     func userProfileViewModelCreate() -> UserProfileViewModel {
