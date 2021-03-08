@@ -18,6 +18,7 @@
 		329B70B825D990AA002D80CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 329B70B625D990AA002D80CE /* Main.storyboard */; };
 		329B70BA25D990AF002D80CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 329B70B925D990AF002D80CE /* Assets.xcassets */; };
 		329B70BD25D990AF002D80CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 329B70BB25D990AF002D80CE /* LaunchScreen.storyboard */; };
+		329C62F725F6BA9500568B1C /* Firestore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329C62F625F6BA9500568B1C /* Firestore.swift */; };
 		32A35AA925DEF24000200916 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A35AA825DEF24000200916 /* User.swift */; };
 		32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A35AAE25DEFDC000200916 /* ProfileViewModel.swift */; };
 		32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */; };
@@ -45,6 +46,7 @@
 		329B70B925D990AF002D80CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		329B70BC25D990AF002D80CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		329B70BE25D990AF002D80CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		329C62F625F6BA9500568B1C /* Firestore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firestore.swift; sourceTree = "<group>"; };
 		32A35AA825DEF24000200916 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		32A35AAE25DEFDC000200916 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */,
+				329C62F625F6BA9500568B1C /* Firestore.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				32B2348C25EAB838003D02C7 /* RegisterController.swift in Sources */,
 				32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */,
 				32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */,
+				329C62F725F6BA9500568B1C /* Firestore.swift in Sources */,
 				32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */,
 				3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */,
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,

@@ -12,6 +12,8 @@ import SDWebImage
 
 class ProfileController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var delegate : ProfileControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         createNavigation()
@@ -118,7 +120,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
+        
         if indexPath.section == 5 {
             let ageCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
             
@@ -130,7 +132,7 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
             ageCell.maxSlider.value = Float(currentUser?.maxAge ?? 65)
             return ageCell
         }
-            
+        
         
         let cell = ProfileCell(style: .default, reuseIdentifier: nil)
         
@@ -242,6 +244,10 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
                 print(error)
                 return
             }
+            
+            self.dismiss(animated: true) {
+                self.delegate?.profileSaved()
+            }
         }
     }
     
@@ -313,20 +319,17 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     var currentUser : User?
     fileprivate func getUserProfileDatas() {
         
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        Firestore.firestore().collection("Users").document(uid).getDocument { (snapshot , error) in
-            
+        Firestore.firestore().getCurrentUser { (currentUser , error) in
             if let error = error {
                 print(error)
                 return
             }
             
-            guard let datas = snapshot?.data() else { return }
-            self.currentUser = User(datas: datas)
+            self.currentUser = currentUser
             self.getProfileImg()
             self.tableView.reloadData()
         }
+        
     }
     
     fileprivate func getProfileImg() {
@@ -364,4 +367,8 @@ class LblTitle : UILabel {
     override func drawText(in rect: CGRect) {
         super.drawText(in: rect.insetBy(dx: 15, dy: 0))
     }
+}
+
+protocol  ProfileControllerDelegate {
+    func profileSaved()
 }

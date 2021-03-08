@@ -24,9 +24,10 @@ class MainViewController: UIViewController {
         topStackView.btnProfile.addTarget(self, action: #selector(profileBtnPressed), for: .touchUpInside)
         bottomStackView.refreshBtn.addTarget(self, action: #selector(refreshBtnPressed), for: .touchUpInside)
         layoutEdit()
-        profileViewEditFS()
-        getUserDatasFS()
         
+        //profileViewEditFS()
+        //getUserDatasFS()
+        getCurrentUser()
         //exampleLogin()
     }
     
@@ -35,17 +36,36 @@ class MainViewController: UIViewController {
     }
     
     
+    fileprivate var currentUser : User?
+    fileprivate func getCurrentUser() {
+        
+        profileBundleView.subviews.forEach({ $0.removeFromSuperview() })
+        
+        Firestore.firestore().getCurrentUser { (currentUser , error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            self.currentUser = currentUser
+            self.getUserDatasFS()
+         }
+        
+    }
+    
     var lastUserData : User?
     fileprivate func getUserDatasFS() {
+        
+        guard let minAge = currentUser?.minAge else { return }
+        guard let maxAge = currentUser?.maxAge else { return }
        
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Searching New Profiles"
         hud.show(in: view)
         
         let usersQuery = Firestore.firestore().collection("Users")
-            .order(by: "UserId")
-            .start(after: [lastUserData?.userId ?? ""])
-            .limit(to: 1)
+            .whereField("Age", isGreaterThanOrEqualTo: minAge)
+            .whereField("Age", isLessThanOrEqualTo: maxAge)
         
         
         usersQuery.getDocuments { (snapshot , error) in
@@ -77,6 +97,7 @@ class MainViewController: UIViewController {
     @objc func profileBtnPressed() {
       
         let profileController = ProfileController()
+        profileController.delegate = self
         let navController = UINavigationController(rootViewController: profileController)
         present(navController, animated: true)
         
@@ -120,3 +141,8 @@ class MainViewController: UIViewController {
     
 }
 
+extension MainViewController : ProfileControllerDelegate {
+    func profileSaved() {
+        getCurrentUser()
+    }
+}
