@@ -7,11 +7,13 @@
 
 import UIKit
 
-class RegisterTextField: UITextField {
+class CustomTextField: UITextField {
 
     let padding : CGFloat
-    init(padding: CGFloat) {
+    let height : CGFloat
+    init(padding: CGFloat , height: CGFloat) {
         self.padding = padding
+        self.height = height
         super.init(frame: .zero)
         layer.cornerRadius = 15
         heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -33,7 +35,7 @@ class RegisterTextField: UITextField {
     }
     
     override var intrinsicContentSize: CGSize {
-        return .init(width: 0, height: 50)
+        return .init(width: 0, height: height)
     }
     
 }

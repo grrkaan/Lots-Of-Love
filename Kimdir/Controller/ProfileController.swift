@@ -252,8 +252,8 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
     }
     
     @objc fileprivate func logoutBtnPressed() {
-        
-        print("Logout...")
+        try? Auth.auth().signOut()
+        dismiss(animated: true)
     }
     
     @objc fileprivate func backBtnPressed() {

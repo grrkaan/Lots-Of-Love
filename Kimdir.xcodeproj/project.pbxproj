@@ -12,6 +12,8 @@
 		321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321CC05325EBEF6A00117FBC /* Bindable.swift */; };
 		3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3226024425EEBE2C004B0F3E /* ProfileController.swift */; };
 		3226024825EEE0C9004B0F3E /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3226024725EEE0C9004B0F3E /* ProfileCell.swift */; };
+		3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6425F95737009BFAD1 /* LoginViewModel.swift */; };
+		3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6825F95A82009BFAD1 /* LoginController.swift */; };
 		329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B025D990AA002D80CE /* AppDelegate.swift */; };
 		329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B225D990AA002D80CE /* SceneDelegate.swift */; };
 		329B70B525D990AA002D80CE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B425D990AA002D80CE /* MainViewController.swift */; };
@@ -23,7 +25,7 @@
 		32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A35AAE25DEFDC000200916 /* ProfileViewModel.swift */; };
 		32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */; };
 		32B2348C25EAB838003D02C7 /* RegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2348B25EAB838003D02C7 /* RegisterController.swift */; };
-		32B2349325EAC961003D02C7 /* RegisterTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2349225EAC961003D02C7 /* RegisterTextField.swift */; };
+		32B2349325EAC961003D02C7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2349225EAC961003D02C7 /* CustomTextField.swift */; };
 		32B2349625EAFE6F003D02C7 /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B2349525EAFE6F003D02C7 /* RegisterViewModel.swift */; };
 		32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */; };
 		32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */; };
@@ -38,6 +40,8 @@
 		321CC05325EBEF6A00117FBC /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		3226024425EEBE2C004B0F3E /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		3226024725EEE0C9004B0F3E /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		3248CF6425F95737009BFAD1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		3248CF6825F95A82009BFAD1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		329B70AD25D990AA002D80CE /* Kimdir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimdir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		329B70B025D990AA002D80CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		329B70B225D990AA002D80CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,7 +55,7 @@
 		32A35AAE25DEFDC000200916 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		32B2348B25EAB838003D02C7 /* RegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterController.swift; sourceTree = "<group>"; };
-		32B2349225EAC961003D02C7 /* RegisterTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTextField.swift; sourceTree = "<group>"; };
+		32B2349225EAC961003D02C7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		32B2349525EAFE6F003D02C7 /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions&UI.swift"; sourceTree = "<group>"; };
 		32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardBottomStackView.swift; sourceTree = "<group>"; };
@@ -81,6 +85,15 @@
 				6663D513E87C386263C0C306 /* Pods-Kimdir.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		3248CF6325F95716009BFAD1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3248CF6425F95737009BFAD1 /* LoginViewModel.swift */,
+				3248CF6825F95A82009BFAD1 /* LoginController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		329B70A425D990AA002D80CE = {
@@ -132,6 +145,7 @@
 		32A35AAC25DEFD6000200916 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				3248CF6325F95716009BFAD1 /* Login */,
 				329B70B425D990AA002D80CE /* MainViewController.swift */,
 				32B2348B25EAB838003D02C7 /* RegisterController.swift */,
 				321CC05325EBEF6A00117FBC /* Bindable.swift */,
@@ -164,7 +178,7 @@
 				32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */,
 				32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */,
 				32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */,
-				32B2349225EAC961003D02C7 /* RegisterTextField.swift */,
+				32B2349225EAC961003D02C7 /* CustomTextField.swift */,
 				3226024725EEE0C9004B0F3E /* ProfileCell.swift */,
 				32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */,
 			);
@@ -303,14 +317,16 @@
 				32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */,
 				3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */,
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,
+				3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */,
 				32A35AA925DEF24000200916 /* User.swift in Sources */,
 				32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */,
 				321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */,
 				32B2349625EAFE6F003D02C7 /* RegisterViewModel.swift in Sources */,
-				32B2349325EAC961003D02C7 /* RegisterTextField.swift in Sources */,
+				32B2349325EAC961003D02C7 /* CustomTextField.swift in Sources */,
 				32C1A74525E64A06004A484D /* Advertisement.swift in Sources */,
 				3226024825EEE0C9004B0F3E /* ProfileCell.swift in Sources */,
 				329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */,
+				3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */,
 				32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -31,6 +31,20 @@ class MainViewController: UIViewController {
         //exampleLogin()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if Auth.auth().currentUser == nil {
+            let loginController = LoginController()
+            loginController.delegate = self
+            let navController = UINavigationController(rootViewController: loginController)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController, animated: true)
+        }
+        
+        
+    }
+    
     fileprivate func exampleLogin() {
         Auth.auth().signIn(withEmail: "kaan@ihs.com", password: "123456", completion: nil)
     }
@@ -99,6 +113,7 @@ class MainViewController: UIViewController {
         let profileController = ProfileController()
         profileController.delegate = self
         let navController = UINavigationController(rootViewController: profileController)
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
         
     }
@@ -143,6 +158,12 @@ class MainViewController: UIViewController {
 
 extension MainViewController : ProfileControllerDelegate {
     func profileSaved() {
+        getCurrentUser()
+    }
+}
+
+extension MainViewController : LoginControllerDelegate {
+    func loginEnd() {
         getCurrentUser()
     }
 }

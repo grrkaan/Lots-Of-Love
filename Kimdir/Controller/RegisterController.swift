@@ -31,9 +31,9 @@ class RegisterController: UIViewController{
     }()
     
     
-    let txtEmail : RegisterTextField = {
+    let txtEmail : CustomTextField = {
         
-        let email = RegisterTextField(padding: 15)
+        let email = CustomTextField(padding: 15, height: 50)
         
         email.attributedPlaceholder = NSAttributedString(string: "example@kimdir.com", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
         email.keyboardType = .emailAddress
@@ -42,9 +42,9 @@ class RegisterController: UIViewController{
         return email
     }()
     
-    let txtUserName : RegisterTextField = {
+    let txtUserName : CustomTextField = {
         
-        let userName = RegisterTextField(padding: 15)
+        let userName = CustomTextField(padding: 15, height: 50)
         
         userName.attributedPlaceholder = NSAttributedString(string: "John Doe", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
         userName.keyboardType = .default
@@ -53,9 +53,9 @@ class RegisterController: UIViewController{
         return userName
     }()
     
-    let txtPassword : RegisterTextField = {
+    let txtPassword : CustomTextField = {
         
-        let password = RegisterTextField(padding: 15)
+        let password = CustomTextField(padding: 15, height: 50)
         
         password.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor : UIColor.gray])
         password.isSecureTextEntry = true
@@ -81,7 +81,22 @@ class RegisterController: UIViewController{
         return btn
     }()
     
-    
+    let btnLogin : UIButton = {
+        
+        let btn = UIButton(type: .system)
+        
+        btn.setTitle("Login", for: .normal)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 17,weight: .heavy)
+        btn.setTitleColor(#colorLiteral(red: 0.9921568627, green: 0.9098039216, blue: 0.8039215686, alpha: 1), for: .normal)
+        btn.layer.cornerRadius = 15
+        btn.heightAnchor.constraint(equalToConstant: 45).isActive = true
+        btn.backgroundColor = #colorLiteral(red: 0.262745098, green: 0.2078431373, blue: 0.1254901961, alpha: 1)
+        btn.addTarget(self, action: #selector(loginPressed), for: .touchUpInside)
+        
+        return btn
+    }()
+        
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -126,6 +141,12 @@ class RegisterController: UIViewController{
         }
     }
    
+    @objc fileprivate func loginPressed() {
+        let loginController = LoginController()
+        navigationController?.pushViewController(loginController, animated: true)
+    }
+    
+    
     let registerHUD = JGProgressHUD(style: .light)
     @objc fileprivate func registerPressed() {
         
@@ -251,6 +272,8 @@ class RegisterController: UIViewController{
     
     fileprivate func editLayout() {
         
+        navigationController?.isNavigationBarHidden = true
+        
         view.addSubview(registerSV)
         registerSV.axis = .vertical
         btnImgSelector.widthAnchor.constraint(equalToConstant: 260).isActive = true
@@ -258,6 +281,12 @@ class RegisterController: UIViewController{
         _ =  registerSV.anchor(top: nil, bottom: nil, trailing: view.trailingAnchor, leading: view.leadingAnchor, padding: .init(top: 0, left: 45, bottom: 0, right: 45))
         registerSV.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        view.addSubview(btnLogin)
+        _ = btnLogin.anchor(top: nil,
+                            bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                            trailing: view.trailingAnchor,
+                            leading: view.leadingAnchor,
+                            padding: .init(top: 0, left: 45, bottom: 0 , right: 45))
         
     }
     
