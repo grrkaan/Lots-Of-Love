@@ -8,7 +8,9 @@
 import UIKit
 import SDWebImage
 class ProfileView: UIView {
-     
+    
+    var delegate : ProfileViewDelegate?
+
     var userViewModel : UserProfileViewModel! {
         
         didSet{
@@ -65,6 +67,15 @@ class ProfileView: UIView {
         let tapG = UITapGestureRecognizer(target: self, action: #selector(profileTapCatch))
         addGestureRecognizer(tapG)
     }
+
+    fileprivate let btnProfileInfo :UIButton = {
+        
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(named: "detayliBilgi")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        btn.addTarget(self, action: #selector(infoBtnPressed), for: .touchUpInside)
+        return btn
+    }()
+    
     
     fileprivate func editLayout() {
        
@@ -86,6 +97,19 @@ class ProfileView: UIView {
         lblUserInfos.font = UIFont.systemFont(ofSize: 27,weight: .heavy)
         lblUserInfos.numberOfLines = 0
         
+        
+        addSubview(btnProfileInfo)
+        _ = btnProfileInfo.anchor(top: nil,
+                                  bottom: bottomAnchor,
+                                  trailing: trailingAnchor,
+                                  leading: nil,
+                                  padding: .init(top: 0, left: 0, bottom: 20, right: 20),
+                                  size: .init(width: 45, height: 45))
+    }
+    
+    
+    @objc fileprivate func infoBtnPressed() {
+        delegate?.infoBtnPressed()
     }
     
     var imgIndex = 0
@@ -206,4 +230,8 @@ class ProfileView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+}
+
+protocol  ProfileViewDelegate {
+    func infoBtnPressed()
 }

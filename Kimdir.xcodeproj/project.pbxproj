@@ -31,6 +31,7 @@
 		32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */; };
 		32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */; };
 		32C1A74525E64A06004A484D /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1A74425E64A06004A484D /* Advertisement.swift */; };
+		32D1E42F25FAB4E1003273CD /* ProfileInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */; };
 		32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardBottomStackView.swift; sourceTree = "<group>"; };
 		32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardTopStackView.swift; sourceTree = "<group>"; };
 		32C1A74425E64A06004A484D /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
+		32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoController.swift; sourceTree = "<group>"; };
 		32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
 		6663D513E87C386263C0C306 /* Pods-Kimdir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kimdir.release.xcconfig"; path = "Target Support Files/Pods-Kimdir/Pods-Kimdir.release.xcconfig"; sourceTree = "<group>"; };
 		BEFF4BF8E71EE756E9C55248 /* Pods_Kimdir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kimdir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +147,7 @@
 		32A35AAC25DEFD6000200916 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				32D1E42D25FAB4C0003273CD /* UserInfo */,
 				3248CF6325F95716009BFAD1 /* Login */,
 				329B70B425D990AA002D80CE /* MainViewController.swift */,
 				32B2348B25EAB838003D02C7 /* RegisterController.swift */,
@@ -183,6 +186,14 @@
 				32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		32D1E42D25FAB4C0003273CD /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		AF3F0FBBB4F3896A03CC309A /* Frameworks */ = {
@@ -311,6 +322,7 @@
 				329B70B525D990AA002D80CE /* MainViewController.swift in Sources */,
 				32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */,
 				32B2348C25EAB838003D02C7 /* RegisterController.swift in Sources */,
+				32D1E42F25FAB4E1003273CD /* ProfileInfoController.swift in Sources */,
 				32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */,
 				32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */,
 				329C62F725F6BA9500568B1C /* Firestore.swift in Sources */,

@@ -92,9 +92,10 @@ class MainViewController: UIViewController {
                 hud.dismiss()
                 let userData = dSnapshot.data()
                 let user = User(datas: userData)
-                self.userProfileViewModels.append(user.userProfileViewModelCreate())
-                self.lastUserData = user
-                self.createProfileFromData(user: user)
+                
+                if user.userId != self.currentUser?.userId {
+                    self.createProfileFromData(user: user)
+                }
             })
             
         }
@@ -103,6 +104,7 @@ class MainViewController: UIViewController {
     fileprivate func createProfileFromData(user : User) {
        
         let pView = ProfileView(frame: .zero)
+        pView.delegate = self
         pView.userViewModel = user.userProfileViewModelCreate()
         profileBundleView.addSubview(pView)
         pView.fillSuperView()
@@ -165,5 +167,13 @@ extension MainViewController : ProfileControllerDelegate {
 extension MainViewController : LoginControllerDelegate {
     func loginEnd() {
         getCurrentUser()
+    }
+}
+
+extension MainViewController: ProfileViewDelegate {
+    func infoBtnPressed() {
+        let profileInfoController = ProfileInfoController()
+        profileInfoController.modalPresentationStyle = .fullScreen
+        present(profileInfoController, animated: true)
     }
 }
