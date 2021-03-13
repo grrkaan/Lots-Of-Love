@@ -109,7 +109,7 @@ class ProfileView: UIView {
     
     
     @objc fileprivate func infoBtnPressed() {
-        delegate?.infoBtnPressed()
+        delegate?.infoBtnPressed(userVM: userViewModel)
     }
     
     var imgIndex = 0
@@ -233,5 +233,5 @@ class ProfileView: UIView {
 }
 
 protocol  ProfileViewDelegate {
-    func infoBtnPressed()
+    func infoBtnPressed(userVM : UserProfileViewModel)
 }

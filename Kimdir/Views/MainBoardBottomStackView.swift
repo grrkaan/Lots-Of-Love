@@ -17,7 +17,7 @@ class MainBoardBottomStackView: UIStackView {
     }
     
     let refreshBtn = createButton(img: #imageLiteral(resourceName: "yenile"))
-    let disLikeBtn = createButton(img: #imageLiteral(resourceName: "kapat"))
+    let disLikeBtn = createButton(img: #imageLiteral(resourceName: "disLike"))
     let superLikeBtn = createButton(img: #imageLiteral(resourceName: "superLike"))
     let likeBtn = createButton(img: #imageLiteral(resourceName: "like"))
     let boostBtn = createButton(img: #imageLiteral(resourceName: "boost"))

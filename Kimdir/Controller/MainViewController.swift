@@ -171,9 +171,10 @@ extension MainViewController : LoginControllerDelegate {
 }
 
 extension MainViewController: ProfileViewDelegate {
-    func infoBtnPressed() {
+    func infoBtnPressed(userVM : UserProfileViewModel) {
         let profileInfoController = ProfileInfoController()
         profileInfoController.modalPresentationStyle = .fullScreen
+        profileInfoController.userVM = userVM
         present(profileInfoController, animated: true)
     }
 }
