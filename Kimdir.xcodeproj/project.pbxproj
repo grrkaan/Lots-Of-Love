@@ -33,6 +33,7 @@
 		32C1A74525E64A06004A484D /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1A74425E64A06004A484D /* Advertisement.swift */; };
 		32D1E42F25FAB4E1003273CD /* ProfileInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */; };
 		32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */; };
+		32E8E86E25FE469400D95DB3 /* ImageSwipeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E8E86D25FE469400D95DB3 /* ImageSwipeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		32C1A74425E64A06004A484D /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoController.swift; sourceTree = "<group>"; };
 		32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
+		32E8E86D25FE469400D95DB3 /* ImageSwipeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSwipeController.swift; sourceTree = "<group>"; };
 		6663D513E87C386263C0C306 /* Pods-Kimdir.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kimdir.release.xcconfig"; path = "Target Support Files/Pods-Kimdir/Pods-Kimdir.release.xcconfig"; sourceTree = "<group>"; };
 		BEFF4BF8E71EE756E9C55248 /* Pods_Kimdir.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kimdir.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */,
+				32E8E86D25FE469400D95DB3 /* ImageSwipeController.swift */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				32A35AA925DEF24000200916 /* User.swift in Sources */,
 				32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */,
 				321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */,
+				32E8E86E25FE469400D95DB3 /* ImageSwipeController.swift in Sources */,
 				32B2349625EAFE6F003D02C7 /* RegisterViewModel.swift in Sources */,
 				32B2349325EAC961003D02C7 /* CustomTextField.swift in Sources */,
 				32C1A74525E64A06004A484D /* Advertisement.swift in Sources */,

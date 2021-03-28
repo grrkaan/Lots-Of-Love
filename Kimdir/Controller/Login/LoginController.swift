@@ -95,8 +95,7 @@ class LoginController: UIViewController {
     }
     
     @objc fileprivate func registerPressed() {
-        let registerController = RegisterController()
-        navigationController?.pushViewController(registerController, animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     

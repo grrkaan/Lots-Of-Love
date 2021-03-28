@@ -31,8 +31,8 @@ class RegisterViewModel {
     }
     
     
-    fileprivate func textValidation() {
-        let valid = email?.isEmpty == false && userName?.isEmpty == false && password?.isEmpty == false
+     func textValidation() {
+        let valid = email?.isEmpty == false && userName?.isEmpty == false && password?.isEmpty == false && bindableImg.value != nil
         bindableTextValidation.value = valid
     }
     
@@ -83,7 +83,13 @@ class RegisterViewModel {
     fileprivate func userInfoFirebaseUpload(imgUrl : String, completion: @escaping (Error?) -> ()) {
         let userId = Auth.auth().currentUser?.uid ?? ""
         
-        let userInfo = ["UserName" : userName ?? "" , "ImgUrl" : imgUrl , "UserId" : userId]
+        let userInfo : [String : Any] = ["UserName" : userName ?? "" ,
+                        "ImgUrl" : imgUrl ,
+                        "UserId" : userId ,
+                        "Age" : 18 ,
+                        "MinAge": ProfileController.defaultMinAge ,
+                        "MaxAge": ProfileController.defaultMaxAge
+        ]
         
         Firestore.firestore().collection("Users").document(userId).setData(userInfo) { (error) in
             

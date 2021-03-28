@@ -16,7 +16,9 @@ class ProfileView: UIView {
         didSet{
             let viewImgUrl = userViewModel.viewImgs.first ?? ""
             if let url = URL(string : viewImgUrl) {
-                profileImg.sd_setImage(with: url)
+                profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+            }else {
+                profileImg.image = UIImage(named: "placeHolderImg")
             }
 
             lblUserInfos.attributedText = userViewModel.attrString
@@ -37,14 +39,18 @@ class ProfileView: UIView {
     
    fileprivate func setImgViewObserver() {
     userViewModel.imgIndexObs = { (imgIndex, imgUrl) in
+     
+        if let url = URL(string : imgUrl ?? "") {
+            self.profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+        }else {
+            self.profileImg.image = UIImage(named: "placeHolderImg")
+        }
+        
         self.imgBarStackView.arrangedSubviews.forEach{ (sView) in
             sView.backgroundColor = self.unselectedImgColor
         }
         self.imgBarStackView.arrangedSubviews[imgIndex].backgroundColor = .white
         
-        if let url = URL(string: imgUrl ?? "") {
-            self.profileImg.sd_setImage(with: url)
-        }
         
     }
     }

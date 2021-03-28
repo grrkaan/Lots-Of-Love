@@ -119,17 +119,21 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
         return section == 0 ? 0 : 1
     }
     
+    static let defaultMinAge = 18
+    static let defaultMaxAge = 60
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 5 {
             let ageCell = AgeRangeCell(style: .default, reuseIdentifier: nil)
+            let minAge = currentUser?.minAge ?? ProfileController.defaultMinAge
+            let maxAge = currentUser?.maxAge ?? ProfileController.defaultMaxAge
             
             ageCell.minSlider.addTarget(self, action: #selector(minSliderChanged), for: .valueChanged)
             ageCell.maxSlider.addTarget(self, action: #selector(maxSliderChanged), for: .valueChanged)
-            ageCell.lblMin.text = "Min \(currentUser?.minAge ?? 18)"
-            ageCell.lblMax.text = "Min \(currentUser?.maxAge ?? 65)"
-            ageCell.minSlider.value = Float(currentUser?.minAge ?? 18)
-            ageCell.maxSlider.value = Float(currentUser?.maxAge ?? 65)
+            ageCell.lblMin.text = "Min \(minAge)"
+            ageCell.lblMax.text = "Min \(maxAge)"
+            ageCell.minSlider.value = Float(minAge)
+            ageCell.maxSlider.value = Float(maxAge)
             return ageCell
         }
         
@@ -230,8 +234,8 @@ class ProfileController: UITableViewController, UIImagePickerControllerDelegate,
             "ImgUrlFirst" : currentUser?.profileImgUrlFirst ?? "",
             "ImgUrlScnd" : currentUser?.profileImgUrlScnd ?? "",
             "ImgUrlThird" : currentUser?.profileImgUrlThird ?? "",
-            "MinAge" : currentUser?.minAge ?? -1,
-            "MaxAge" : currentUser?.maxAge ?? -1
+            "MinAge" : currentUser?.minAge ?? ProfileController.defaultMinAge,
+            "MaxAge" : currentUser?.maxAge ?? ProfileController.defaultMaxAge
         ]
         
         let hud = JGProgressHUD(style: .dark)

@@ -11,6 +11,7 @@ import JGProgressHUD
 
 class RegisterController: UIViewController{
     
+    var delegate : LoginControllerDelegate?
     
     let btnImgSelector : UIButton = {
         
@@ -143,6 +144,7 @@ class RegisterController: UIViewController{
    
     @objc fileprivate func loginPressed() {
         let loginController = LoginController()
+        loginController.delegate = delegate
         navigationController?.pushViewController(loginController, animated: true)
     }
     
@@ -324,6 +326,7 @@ extension RegisterController : UIImagePickerControllerDelegate, UINavigationCont
         
         let pickedImg = info[.originalImage] as? UIImage
         registerViewModel.bindableImg.value = pickedImg
+        registerViewModel.textValidation()
         dismiss(animated: true, completion: nil)
     }
     

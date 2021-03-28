@@ -35,9 +35,11 @@ class MainViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if Auth.auth().currentUser == nil {
-            let loginController = LoginController()
-            loginController.delegate = self
-            let navController = UINavigationController(rootViewController: loginController)
+//            let loginController = LoginController()
+//            loginController.delegate = self
+            let registerController = RegisterController()
+            registerController.delegate = self
+            let navController = UINavigationController(rootViewController: registerController)
             navController.modalPresentationStyle = .fullScreen
             present(navController, animated: true)
         }
@@ -70,8 +72,8 @@ class MainViewController: UIViewController {
     var lastUserData : User?
     fileprivate func getUserDatasFS() {
         
-        guard let minAge = currentUser?.minAge else { return }
-        guard let maxAge = currentUser?.maxAge else { return }
+        let minAge = currentUser?.minAge ?? ProfileController.defaultMinAge
+        let maxAge = currentUser?.maxAge ?? ProfileController.defaultMaxAge
        
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Searching New Profiles"

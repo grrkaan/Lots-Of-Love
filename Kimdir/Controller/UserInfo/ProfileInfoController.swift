@@ -11,10 +11,9 @@ class ProfileInfoController: UIViewController {
     
     var userVM : UserProfileViewModel! {
         didSet {
+            imgSwipeController.userVM = userVM
             lblInfo.attributedText = userVM.attrString
             
-            guard let imgUrl = userVM.viewImgs.first, let url = URL(string: imgUrl) else { return }
-            profileImg.sd_setImage(with: url)
         }
     }
     
@@ -28,13 +27,7 @@ class ProfileInfoController: UIViewController {
     }()
     
     
-    let profileImg : UIImageView = {
-        let img = UIImageView(image: #imageLiteral(resourceName: "riri-3"))
-        img.contentMode = .scaleAspectFill
-        img.clipsToBounds = true
-        
-        return img
-    }()
+    let imgSwipeController = ImageSwipeController(transitionStyle: .scroll, navigationOrientation: .horizontal)
     
     let lblInfo : UILabel = {
         
@@ -61,21 +54,23 @@ class ProfileInfoController: UIViewController {
     
     fileprivate func editLayout() {
       
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         
         view.addSubview(scrollView)
         scrollView.fillSuperView()
-        scrollView.addSubview(profileImg)
-        profileImg.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
+        
+        let imgSwipeView = imgSwipeController.view!
+        scrollView.addSubview(imgSwipeView)
+        imgSwipeView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width)
         scrollView.addSubview(lblInfo)
         
-        _ = lblInfo.anchor(top: profileImg.bottomAnchor,
+        _ = lblInfo.anchor(top: imgSwipeView.bottomAnchor,
                            bottom: nil, trailing: scrollView.trailingAnchor,
                            leading: scrollView.leadingAnchor,
                            padding: .init(top: 10, left: 10, bottom: 0, right: 0))
         
         scrollView.addSubview(btnCloseInfo)
-        _ = btnCloseInfo.anchor(top: profileImg.bottomAnchor,
+        _ = btnCloseInfo.anchor(top: imgSwipeView.bottomAnchor,
                                 bottom: nil,
                                 trailing: view.trailingAnchor,
                                 leading: nil,
@@ -84,6 +79,16 @@ class ProfileInfoController: UIViewController {
         
         
         
+    }
+    
+    
+    fileprivate let extraPadding : CGFloat = 90
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        
+        let imgSwipeView = imgSwipeController.view!
+        imgSwipeView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.width + extraPadding)
     }
     
     override func viewDidLoad() {
@@ -162,7 +167,8 @@ extension ProfileInfoController : UIScrollViewDelegate {
         var resizer = view.frame.width - (2 * yOffset)
         resizer = max(view.frame.width,resizer)
         
-        profileImg.frame = CGRect(x: min(0,yOffset), y: min(0,yOffset), width: resizer, height: resizer)
+        let imgSwipeView = imgSwipeController.view!
+        imgSwipeView.frame = CGRect(x: min(0,yOffset), y: min(0,yOffset), width: resizer, height: resizer + extraPadding)
         
     }
 }
