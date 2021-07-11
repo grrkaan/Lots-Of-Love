@@ -23,12 +23,11 @@ class MainViewController: UIViewController {
         
         topStackView.btnProfile.addTarget(self, action: #selector(profileBtnPressed), for: .touchUpInside)
         bottomStackView.refreshBtn.addTarget(self, action: #selector(refreshBtnPressed), for: .touchUpInside)
-        layoutEdit()
+        bottomStackView.likeBtn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
         
-        //profileViewEditFS()
-        //getUserDatasFS()
+        layoutEdit()
         getCurrentUser()
-        //exampleLogin()
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,26 +89,43 @@ class MainViewController: UIViewController {
                 print(error)
                 return
             }
+            
+            
+            var previousProfileView : ProfileView?
+            
             snapshot?.documents.forEach({ (dSnapshot) in
                 hud.dismiss()
                 let userData = dSnapshot.data()
                 let user = User(datas: userData)
                 
                 if user.userId != self.currentUser?.userId {
-                    self.createProfileFromData(user: user)
+                   let pView =  self.createProfileFromData(user: user)
+                    
+                    if self.lastProfileView == nil {
+                        self.lastProfileView = pView
+                    }
+            
+                    previousProfileView?.nextProfileView = pView
+                    previousProfileView = pView
+            
+            
+            
                 }
             })
             
         }
     }
     
-    fileprivate func createProfileFromData(user : User) {
+    fileprivate func createProfileFromData(user : User) -> ProfileView {
        
         let pView = ProfileView(frame: .zero)
         pView.delegate = self
         pView.userViewModel = user.userProfileViewModelCreate()
         profileBundleView.addSubview(pView)
+        profileBundleView.sendSubviewToBack(pView)
         pView.fillSuperView()
+        
+        return pView
     }
     
     @objc func profileBtnPressed() {
@@ -124,6 +140,30 @@ class MainViewController: UIViewController {
     
     @objc func refreshBtnPressed() {
         getUserDatasFS()
+    }
+    
+    
+    
+    var lastProfileView : ProfileView?
+    @objc func likeBtnPressed() {
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
+            
+            self.lastProfileView?.frame = CGRect(x: 600, y: 0, width: (self.lastProfileView?.frame.width)!, height: (self.lastProfileView?.frame.height)!)
+            
+            
+            let angle = CGFloat.pi * 20 / 180
+            self.lastProfileView?.transform = CGAffineTransform(rotationAngle: angle)
+            
+        }) {(_) in
+            
+            self.lastProfileView?.removeFromSuperview()
+            self.lastProfileView = self.lastProfileView?.nextProfileView
+        }
+        
+        
+        
+
     }
     
     //MARK:- Layout Edit Function
@@ -173,6 +213,13 @@ extension MainViewController : LoginControllerDelegate {
 }
 
 extension MainViewController: ProfileViewDelegate {
+    
+    func removeProfileFromQueue(profileView: ProfileView) {
+        self.lastProfileView?.removeFromSuperview()
+        self.lastProfileView = self.lastProfileView?.nextProfileView
+    }
+    
+    
     func infoBtnPressed(userVM : UserProfileViewModel) {
         let profileInfoController = ProfileInfoController()
         profileInfoController.modalPresentationStyle = .fullScreen

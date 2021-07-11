@@ -27,7 +27,7 @@ class ProfileInfoController: UIViewController {
     }()
     
     
-    let imgSwipeController = ImageSwipeController(transitionStyle: .scroll, navigationOrientation: .horizontal)
+    let imgSwipeController = ImageSwipeController(userVMFlag: false)
     
     let lblInfo : UILabel = {
         
@@ -97,7 +97,7 @@ class ProfileInfoController: UIViewController {
         editLayout()
         blurEffect()
         buttonsEditLayout()
-        
+     
     }
     
     @objc fileprivate func closeBtnPressed() {
@@ -115,6 +115,8 @@ class ProfileInfoController: UIViewController {
     @objc fileprivate func likeBtnPressed() {
        print("like")
     }
+    
+    
     
     fileprivate func blurEffect() {
         

@@ -9,17 +9,25 @@ import UIKit
 import SDWebImage
 class ProfileView: UIView {
     
+    
+    var nextProfileView : ProfileView?
+    
     var delegate : ProfileViewDelegate?
 
     var userViewModel : UserProfileViewModel! {
         
         didSet{
-            let viewImgUrl = userViewModel.viewImgs.first ?? ""
-            if let url = URL(string : viewImgUrl) {
-                profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
-            }else {
-                profileImg.image = UIImage(named: "placeHolderImg")
-            }
+            
+            
+//            let viewImgUrl = userViewModel.viewImgs.first ?? ""
+            imageSwipeController.userVM = userViewModel
+            
+            
+//            if let url = URL(string : viewImgUrl) {
+//                profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+//            }else {
+//                profileImg.image = UIImage(named: "placeHolderImg")
+//            }
 
             lblUserInfos.attributedText = userViewModel.attrString
             lblUserInfos.textAlignment = userViewModel.infoLocation
@@ -40,11 +48,11 @@ class ProfileView: UIView {
    fileprivate func setImgViewObserver() {
     userViewModel.imgIndexObs = { (imgIndex, imgUrl) in
      
-        if let url = URL(string : imgUrl ?? "") {
-            self.profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
-        }else {
-            self.profileImg.image = UIImage(named: "placeHolderImg")
-        }
+//        if let url = URL(string : imgUrl ?? "") {
+//            self.profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+//        }else {
+//            self.profileImg.image = UIImage(named: "placeHolderImg")
+//        }
         
         self.imgBarStackView.arrangedSubviews.forEach{ (sView) in
             sView.backgroundColor = self.unselectedImgColor
@@ -57,7 +65,8 @@ class ProfileView: UIView {
     
     
     fileprivate  let outBorder : CGFloat = 120
-    fileprivate  let profileImg = UIImageView(image:#imageLiteral(resourceName: "steve-halama-dfwFFQLvc0s-unsplash") )
+//    fileprivate  let profileImg = UIImageView(image:#imageLiteral(resourceName: "steve-halama-dfwFFQLvc0s-unsplash") )
+    fileprivate let imageSwipeController = ImageSwipeController(userVMFlag: true)
     fileprivate  let unselectedImgColor = UIColor(white: 0, alpha: 0.2)
     let lblUserInfos = UILabel()
     let gradientLayer = CAGradientLayer()
@@ -87,11 +96,17 @@ class ProfileView: UIView {
        
         layer.cornerRadius = 10
         clipsToBounds = true
-        profileImg.contentMode = .scaleAspectFill
-        addSubview(profileImg)
-        profileImg.fillSuperView()
+    
         
-        createBarStackView()
+//        profileImg.contentMode = .scaleAspectFill
+//        addSubview(profileImg)
+//        profileImg.fillSuperView()
+        
+        let imageSwipeView = imageSwipeController.view!
+        addSubview(imageSwipeView)
+        imageSwipeView.fillSuperView()
+        
+//        createBarStackView()
         createGradientLayer()
         addSubview(lblUserInfos)
         _ = lblUserInfos.anchor(top: nil,
@@ -183,6 +198,7 @@ class ProfileView: UIView {
             self.transform = .identity
             if discardProfileFlag {
                 self.removeFromSuperview()
+                self.delegate?.removeProfileFromQueue(profileView: self)
             }
         }
         
@@ -239,5 +255,6 @@ class ProfileView: UIView {
 }
 
 protocol  ProfileViewDelegate {
+    func removeProfileFromQueue(profileView : ProfileView)
     func infoBtnPressed(userVM : UserProfileViewModel)
 }
