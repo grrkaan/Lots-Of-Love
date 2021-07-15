@@ -43,6 +43,6 @@ struct User : ProfileViewModelCreate{
         if let url = profileImgUrlScnd  , !url.isEmpty { imgUrl.append(url) }
         if let url = profileImgUrlThird  ,!url.isEmpty { imgUrl.append(url) }
         
-        return UserProfileViewModel(attrString: attrText, viewImgs: imgUrl, infoLocation: .left)
+        return UserProfileViewModel(attrString: attrText, viewImgs: imgUrl, infoLocation: .left, userID: self.userId)
     }
 }

@@ -13,27 +13,27 @@ class ProfileView: UIView {
     var nextProfileView : ProfileView?
     
     var delegate : ProfileViewDelegate?
-
+    
     var userViewModel : UserProfileViewModel! {
         
         didSet{
             
             
-//            let viewImgUrl = userViewModel.viewImgs.first ?? ""
+            //            let viewImgUrl = userViewModel.viewImgs.first ?? ""
             imageSwipeController.userVM = userViewModel
             
             
-//            if let url = URL(string : viewImgUrl) {
-//                profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
-//            }else {
-//                profileImg.image = UIImage(named: "placeHolderImg")
-//            }
-
+            //            if let url = URL(string : viewImgUrl) {
+            //                profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+            //            }else {
+            //                profileImg.image = UIImage(named: "placeHolderImg")
+            //            }
+            
             lblUserInfos.attributedText = userViewModel.attrString
             lblUserInfos.textAlignment = userViewModel.infoLocation
             
             (0..<userViewModel.viewImgs.count).forEach { (_) in
-
+                
                 let bView = UIView()
                 bView.backgroundColor = unselectedImgColor
                 
@@ -45,27 +45,27 @@ class ProfileView: UIView {
         }
     }
     
-   fileprivate func setImgViewObserver() {
-    userViewModel.imgIndexObs = { (imgIndex, imgUrl) in
-     
-//        if let url = URL(string : imgUrl ?? "") {
-//            self.profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
-//        }else {
-//            self.profileImg.image = UIImage(named: "placeHolderImg")
-//        }
-        
-        self.imgBarStackView.arrangedSubviews.forEach{ (sView) in
-            sView.backgroundColor = self.unselectedImgColor
+    fileprivate func setImgViewObserver() {
+        userViewModel.imgIndexObs = { (imgIndex, imgUrl) in
+            
+            //        if let url = URL(string : imgUrl ?? "") {
+            //            self.profileImg.sd_setImage(with: url, placeholderImage: UIImage(named: "placeHolderImg"), options: .continueInBackground)
+            //        }else {
+            //            self.profileImg.image = UIImage(named: "placeHolderImg")
+            //        }
+            
+            self.imgBarStackView.arrangedSubviews.forEach{ (sView) in
+                sView.backgroundColor = self.unselectedImgColor
+            }
+            self.imgBarStackView.arrangedSubviews[imgIndex].backgroundColor = .white
+            
+            
         }
-        self.imgBarStackView.arrangedSubviews[imgIndex].backgroundColor = .white
-        
-        
-    }
     }
     
     
     fileprivate  let outBorder : CGFloat = 120
-//    fileprivate  let profileImg = UIImageView(image:#imageLiteral(resourceName: "steve-halama-dfwFFQLvc0s-unsplash") )
+    //    fileprivate  let profileImg = UIImageView(image:#imageLiteral(resourceName: "steve-halama-dfwFFQLvc0s-unsplash") )
     fileprivate let imageSwipeController = ImageSwipeController(userVMFlag: true)
     fileprivate  let unselectedImgColor = UIColor(white: 0, alpha: 0.2)
     let lblUserInfos = UILabel()
@@ -82,7 +82,7 @@ class ProfileView: UIView {
         let tapG = UITapGestureRecognizer(target: self, action: #selector(profileTapCatch))
         addGestureRecognizer(tapG)
     }
-
+    
     fileprivate let btnProfileInfo :UIButton = {
         
         let btn = UIButton(type: .system)
@@ -93,27 +93,27 @@ class ProfileView: UIView {
     
     
     fileprivate func editLayout() {
-       
+        
         layer.cornerRadius = 10
         clipsToBounds = true
-    
         
-//        profileImg.contentMode = .scaleAspectFill
-//        addSubview(profileImg)
-//        profileImg.fillSuperView()
+        
+        //        profileImg.contentMode = .scaleAspectFill
+        //        addSubview(profileImg)
+        //        profileImg.fillSuperView()
         
         let imageSwipeView = imageSwipeController.view!
         addSubview(imageSwipeView)
         imageSwipeView.fillSuperView()
         
-//        createBarStackView()
+        //        createBarStackView()
         createGradientLayer()
         addSubview(lblUserInfos)
         _ = lblUserInfos.anchor(top: nil,
-                            bottom: bottomAnchor,
-                            trailing: trailingAnchor,
-                            leading: leadingAnchor,
-                            padding: .init(top: 0, left: 15, bottom: 15, right: 15))
+                                bottom: bottomAnchor,
+                                trailing: trailingAnchor,
+                                leading: leadingAnchor,
+                                padding: .init(top: 0, left: 15, bottom: 15, right: 15))
         lblUserInfos.textColor = .white
         lblUserInfos.font = UIFont.systemFont(ofSize: 27,weight: .heavy)
         lblUserInfos.numberOfLines = 0
@@ -135,7 +135,7 @@ class ProfileView: UIView {
     
     var imgIndex = 0
     @objc func profileTapCatch(tapG : UITapGestureRecognizer){
-   
+        
         let tapLocation = tapG.location(in: nil)
         
         let nextImgTap = tapLocation.x > frame.width / 2 ? true : false
@@ -158,7 +158,7 @@ class ProfileView: UIView {
             superview?.subviews.forEach{ (subView) in
                 subView.layer.removeAllAnimations()
             }
-        
+            
         case .changed :
             swipeAnimation(panGesture)
             
@@ -183,24 +183,30 @@ class ProfileView: UIView {
         
         let discardProfileFlag : Bool = abs(panGesture.translation(in: nil).x) > outBorder
         
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: .curveEaseOut,
-                       animations: {
-                        if discardProfileFlag {
-                            
-                            self.frame = CGRect(x: 600 * translationWay, y: 0, width: self.frame.width, height: self.frame.height)
-                            
-                        }else {
-                            self.transform = .identity
-                        }
-                        
-                       })
-        { (_) in
-            self.transform = .identity
-            if discardProfileFlag {
-                self.removeFromSuperview()
-                self.delegate?.removeProfileFromQueue(profileView: self)
+        
+        guard let mainController = self.delegate as? MainViewController else { return }
+        
+        
+        if discardProfileFlag {
+            
+            if translationWay == 1 {
+                mainController.likeBtnPressed()
+                
+            }else {
+                
+                mainController.dislikeBtnPressed()
+                
             }
+            
+        }else {
+            
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.1, options: .curveEaseOut,
+                           animations: {
+                            self.transform = .identity
+                           })
+            
         }
+        
         
         
     }

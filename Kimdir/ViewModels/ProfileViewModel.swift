@@ -9,12 +9,14 @@ import UIKit
 
 class UserProfileViewModel {
     
+    let userID : String
     let attrString : NSAttributedString
     let viewImgs : [String]
     let infoLocation :NSTextAlignment
     
     
-    init(attrString : NSAttributedString, viewImgs : [String], infoLocation :NSTextAlignment) {
+    init(attrString : NSAttributedString, viewImgs : [String], infoLocation :NSTextAlignment, userID : String) {
+        self.userID = userID
         self.attrString = attrString
         self.viewImgs = viewImgs
         self.infoLocation = infoLocation
