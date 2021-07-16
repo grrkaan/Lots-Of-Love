@@ -84,7 +84,7 @@ class RegisterViewModel {
         let userId = Auth.auth().currentUser?.uid ?? ""
         
         let userInfo : [String : Any] = ["UserName" : userName ?? "" ,
-                        "ImgUrl" : imgUrl ,
+                        "ImgUrlFirst" : imgUrl ,
                         "UserId" : userId ,
                         "Age" : 18 ,
                         "MinAge": ProfileController.defaultMinAge ,

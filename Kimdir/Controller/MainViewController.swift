@@ -64,13 +64,48 @@ class MainViewController: UIViewController {
             }
             
             self.currentUser = currentUser
-            self.getUserDatasFS()
+            self.getCurrentUserSwipes()
+            
         }
         
     }
     
+    
+    var swipeDatas = [String : Int]()
+    fileprivate func getCurrentUserSwipes(){
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        Firestore.firestore().collection("Swipes").document(userID).getDocument { (snapshot , error) in
+            
+            if let error = error {
+                print("Error when getting current user swipes : \(error.localizedDescription)")
+                return
+            }
+            
+            guard let swipeData = snapshot?.data() as? [String : Int] else {
+                
+                self.swipeDatas.removeAll()
+                self.getUserDatasFS()
+                
+                return
+                
+            }
+            self.swipeDatas = swipeData
+            self.getUserDatasFS()
+            
+        }
+        
+        
+        
+        
+    }
+    
+    
     var lastUserData : User?
     fileprivate func getUserDatasFS() {
+        
+        print("here 1")
         
         let minAge = currentUser?.minAge ?? ProfileController.defaultMinAge
         let maxAge = currentUser?.maxAge ?? ProfileController.defaultMaxAge
@@ -92,21 +127,27 @@ class MainViewController: UIViewController {
                 return
             }
             
-            
+            print("here 1")
             var previousProfileView : ProfileView?
             
             snapshot?.documents.forEach({ (dSnapshot) in
+                print("here 1")
                 hud.dismiss()
                 let userData = dSnapshot.data()
                 let user = User(datas: userData)
+                print("here 1")
+                let isThatMe = user.userId == Auth.auth().currentUser?.uid
+                let swipeCheck = self.swipeDatas[user.userId] != nil
                 
-                if user.userId != self.currentUser?.userId {
+                print("1: \(isThatMe) and 2: \(swipeCheck)")
+                
+                if  !isThatMe && !swipeCheck {
                     let pView =  self.createProfileFromData(user: user)
-                    
+                    print("here 1")
                     if self.lastProfileView == nil {
                         self.lastProfileView = pView
                     }
-                    
+                    print("here 1")
                     previousProfileView?.nextProfileView = pView
                     previousProfileView = pView
                     
@@ -141,9 +182,12 @@ class MainViewController: UIViewController {
     }
     
     @objc func refreshBtnPressed() {
-        getUserDatasFS()
+        
+        if lastProfileView == nil {
+            getCurrentUser()
+        }
+
     }
-    
     
     
     
@@ -179,6 +223,10 @@ class MainViewController: UIViewController {
                     
                     print("Swipe Saved..")
                     
+                    if swipeFeelings == 1{
+                        self.matchControl(loverID: loverID)
+                    }
+                    
                 }
                 
                 
@@ -194,6 +242,10 @@ class MainViewController: UIViewController {
                     
                     
                     print("Swipe Saved..")
+                    
+                    if swipeFeelings == 1{
+                        self.matchControl(loverID: loverID)
+                    }
                     
                 }
                 
@@ -293,6 +345,41 @@ class MainViewController: UIViewController {
         }
         
         
+        
+    }
+    
+    
+    fileprivate func matchControl(loverID : String) {
+        
+        print("Match Control Started..")
+        
+        Firestore.firestore().collection("Swipes").document(loverID).getDocument { (snapshot , error) in
+            
+            if let error = error {
+                print("Error : \(error.localizedDescription)")
+                return
+                
+            }
+            
+            guard let data = snapshot?.data() else { return }
+            
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            let matchFlag = data[userID] as? Int == 1
+            
+            if matchFlag {
+                print("It's match LOVERS")
+                let hud = JGProgressHUD(style: .dark)
+                hud.textLabel.text = "It's a match"
+                hud.show(in: self.view)
+                
+                
+                hud.dismiss(afterDelay: 2)
+            }
+            
+            
+            
+            
+        }
         
     }
     
