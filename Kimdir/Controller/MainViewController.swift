@@ -105,7 +105,6 @@ class MainViewController: UIViewController {
     var lastUserData : User?
     fileprivate func getUserDatasFS() {
         
-        print("here 1")
         
         let minAge = currentUser?.minAge ?? ProfileController.defaultMinAge
         let maxAge = currentUser?.maxAge ?? ProfileController.defaultMaxAge
@@ -127,27 +126,23 @@ class MainViewController: UIViewController {
                 return
             }
             
-            print("here 1")
             var previousProfileView : ProfileView?
             
             snapshot?.documents.forEach({ (dSnapshot) in
-                print("here 1")
                 hud.dismiss()
                 let userData = dSnapshot.data()
                 let user = User(datas: userData)
-                print("here 1")
                 let isThatMe = user.userId == Auth.auth().currentUser?.uid
-                let swipeCheck = self.swipeDatas[user.userId] != nil
+            
                 
-                print("1: \(isThatMe) and 2: \(swipeCheck)")
+                // let swipeCheck = self.swipeDatas[user.userId] != nil
+                let swipeCheck = false
                 
                 if  !isThatMe && !swipeCheck {
                     let pView =  self.createProfileFromData(user: user)
-                    print("here 1")
                     if self.lastProfileView == nil {
                         self.lastProfileView = pView
                     }
-                    print("here 1")
                     previousProfileView?.nextProfileView = pView
                     previousProfileView = pView
                     
@@ -183,10 +178,10 @@ class MainViewController: UIViewController {
     
     @objc func refreshBtnPressed() {
         
-        if lastProfileView == nil {
-            getCurrentUser()
-        }
 
+        profileBundleView.subviews.forEach({ $0.removeFromSuperview() })
+        getCurrentUser()
+        
     }
     
     
@@ -368,18 +363,25 @@ class MainViewController: UIViewController {
             
             if matchFlag {
                 print("It's match LOVERS")
-                let hud = JGProgressHUD(style: .dark)
-                hud.textLabel.text = "It's a match"
-                hud.show(in: self.view)
+                self.getMatchView(loverID: loverID)
                 
-                
-                hud.dismiss(afterDelay: 2)
             }
             
             
             
             
         }
+        
+    }
+    
+    
+    fileprivate func getMatchView(loverID : String) {
+        
+        let matchView = MatchView()
+        matchView.loverID = loverID
+        matchView.currentUser = currentUser
+        view.addSubview(matchView)
+        matchView.fillSuperView()
         
     }
     

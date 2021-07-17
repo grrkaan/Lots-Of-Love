@@ -30,6 +30,9 @@
 		32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */; };
 		32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */; };
 		32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */; };
+		32BEB95F26A34A9E00ECBD5E /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB95E26A34A9E00ECBD5E /* MatchView.swift */; };
+		32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96026A368B800ECBD5E /* DMButton.swift */; };
+		32BEB96326A36BD900ECBD5E /* KSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96226A36BD900ECBD5E /* KSButton.swift */; };
 		32C1A74525E64A06004A484D /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1A74425E64A06004A484D /* Advertisement.swift */; };
 		32D1E42F25FAB4E1003273CD /* ProfileInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */; };
 		32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */; };
@@ -62,6 +65,9 @@
 		32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions&UI.swift"; sourceTree = "<group>"; };
 		32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardBottomStackView.swift; sourceTree = "<group>"; };
 		32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardTopStackView.swift; sourceTree = "<group>"; };
+		32BEB95E26A34A9E00ECBD5E /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
+		32BEB96026A368B800ECBD5E /* DMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButton.swift; sourceTree = "<group>"; };
+		32BEB96226A36BD900ECBD5E /* KSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSButton.swift; sourceTree = "<group>"; };
 		32C1A74425E64A06004A484D /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoController.swift; sourceTree = "<group>"; };
 		32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
@@ -186,6 +192,9 @@
 				32B2349225EAC961003D02C7 /* CustomTextField.swift */,
 				3226024725EEE0C9004B0F3E /* ProfileCell.swift */,
 				32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */,
+				32BEB95E26A34A9E00ECBD5E /* MatchView.swift */,
+				32BEB96026A368B800ECBD5E /* DMButton.swift */,
+				32BEB96226A36BD900ECBD5E /* KSButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,11 +339,13 @@
 				32A35AAF25DEFDC000200916 /* ProfileViewModel.swift in Sources */,
 				329C62F725F6BA9500568B1C /* Firestore.swift in Sources */,
 				32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */,
+				32BEB95F26A34A9E00ECBD5E /* MatchView.swift in Sources */,
 				3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */,
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,
 				3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */,
 				32A35AA925DEF24000200916 /* User.swift in Sources */,
 				32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */,
+				32BEB96326A36BD900ECBD5E /* KSButton.swift in Sources */,
 				321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */,
 				32E8E86E25FE469400D95DB3 /* ImageSwipeController.swift in Sources */,
 				32B2349625EAFE6F003D02C7 /* RegisterViewModel.swift in Sources */,
@@ -343,6 +354,7 @@
 				3226024825EEE0C9004B0F3E /* ProfileCell.swift in Sources */,
 				329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */,
 				3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */,
+				32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */,
 				32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
