@@ -21,6 +21,9 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         
+        
+        navigationController?.navigationBar.isHidden = true
+        topStackView.btnDM.addTarget(self, action: #selector(dmButtonPressed), for: .touchUpInside)
         topStackView.btnProfile.addTarget(self, action: #selector(profileBtnPressed), for: .touchUpInside)
         bottomStackView.refreshBtn.addTarget(self, action: #selector(refreshBtnPressed), for: .touchUpInside)
         bottomStackView.likeBtn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
@@ -181,6 +184,18 @@ class MainViewController: UIViewController {
 
         profileBundleView.subviews.forEach({ $0.removeFromSuperview() })
         getCurrentUser()
+        
+    }
+    
+    @objc func dmButtonPressed() {
+        
+        print("HERE")
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .blue
+        navigationController?.pushViewController(viewController, animated: true)
+        
+        
+        
         
     }
     

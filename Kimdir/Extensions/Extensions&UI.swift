@@ -28,6 +28,7 @@ extension UIColor {
 
 extension UIView{
     
+    @discardableResult
     func anchor(top: NSLayoutYAxisAnchor?,
                 bottom: NSLayoutYAxisAnchor?,
                 trailing: NSLayoutXAxisAnchor?,
@@ -109,5 +110,76 @@ extension UIView{
             widthAnchor.constraint(equalToConstant: size.width).isActive = true
         }
     }
+    
+    
+    
+    func centerX(_ anchor : NSLayoutXAxisAnchor) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerXAnchor.constraint(equalTo: anchor).isActive = true
+    }
+    
+    func centerY(_ anchor : NSLayoutYAxisAnchor) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: anchor).isActive = true
+    }
+    
+    func centerXSuperView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let superViewCenterXAnchor = superview?.centerXAnchor {
+            centerXAnchor.constraint(equalTo: superViewCenterXAnchor).isActive = true
+        }
+    }
+    
+    func centerYSuperView() {
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let superViewCenterYAnchor = superview?.centerYAnchor {
+            centerYAnchor.constraint(equalTo: superViewCenterYAnchor).isActive = true
+        }
+    }
+    
+    @discardableResult
+    func constraintHeight(_ height : CGFloat) -> AnchorConstraints {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        var const = AnchorConstraints()
+        
+        const.height = heightAnchor.constraint(equalToConstant: height)
+        const.height?.isActive = true
+        return const
+    }
+    
+    @discardableResult
+    func constraintWidth(_ width : CGFloat) -> AnchorConstraints {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        var const = AnchorConstraints()
+        
+        const.width = widthAnchor.constraint(equalToConstant: width)
+        const.width?.isActive = true
+        return const
+    }
+    
+    
+    func addShadow(opacity : Float = 0, radius : CGFloat = 0, offset : CGSize = .zero , color : UIColor = .black){
+        
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        layer.shadowOffset = offset
+        layer.shadowColor = color.cgColor
+
+    }
+    
+    convenience init (backgroundColor : UIColor = .clear) {
+        
+        self.init(frame: .zero)
+        self.backgroundColor = backgroundColor
+    }
+    
+    
+    
+    
+    
     
 }
