@@ -43,8 +43,8 @@ open class ListHeaderAndFooterController <T : ListCell<U>, U, H : UICollectionRe
         collectionView.register(T.self, forCellWithReuseIdentifier: cellID)
         
         
-        collectionView.register(H.self, forCellWithReuseIdentifier: UICollectionView.elementKindSectionHeader)
-        collectionView.register(F.self, forCellWithReuseIdentifier: UICollectionView.elementKindSectionFooter)
+        collectionView.register(H.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: extraViewID)
+        collectionView.register(F.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: extraViewID)
         
         
     }

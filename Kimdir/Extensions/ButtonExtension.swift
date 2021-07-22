@@ -38,6 +38,7 @@ extension UIButton {
         }else {
             
             setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+            self.tintColor = tintColor
         }
         
         if let action = action {

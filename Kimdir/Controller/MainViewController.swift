@@ -189,8 +189,8 @@ class MainViewController: UIViewController {
     
     @objc func dmButtonPressed() {
         
-        print("HERE")
-        let viewController = UIViewController()
+        
+        let viewController = MessagesAndMatchesController()
         viewController.view.backgroundColor = .blue
         navigationController?.pushViewController(viewController, animated: true)
         

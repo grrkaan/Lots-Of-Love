@@ -26,12 +26,12 @@ extension UIView {
     }
     
     @discardableResult
-    fileprivate func createStackView(_ views: UIView... , spacing : CGFloat = 0, alignment : UIStackView.Alignment = .fill, distribution : UIStackView.Distribution = .fill) -> UIStackView {
+     func createStackView(_ views: UIView... , spacing : CGFloat = 0, alignment : UIStackView.Alignment = .fill, distribution : UIStackView.Distribution = .fill) -> UIStackView {
         return _createStackView(.vertical, views: views, spacing: spacing, alignment: alignment, distribution: distribution)
     }
     
     @discardableResult
-    fileprivate func createHorizontalStackView(_ views: UIView... , spacing : CGFloat = 0, alignment : UIStackView.Alignment = .fill, distribution : UIStackView.Distribution = .fill) -> UIStackView {
+     func createHorizontalStackView(_ views: UIView... , spacing : CGFloat = 0, alignment : UIStackView.Alignment = .fill, distribution : UIStackView.Distribution = .fill) -> UIStackView {
         return _createStackView(.horizontal, views: views, spacing: spacing, alignment: alignment, distribution: distribution)
     }
     
@@ -81,7 +81,7 @@ extension UIEdgeInsets {
 
 extension UIImageView {
     
-    convenience init(image : UIImage, contentMode : UIView.ContentMode = .scaleAspectFill) {
+    convenience init(_ image : UIImage, contentMode : UIView.ContentMode = .scaleAspectFill) {
        
         self.init(image: image)
         self.contentMode = contentMode

@@ -50,6 +50,11 @@ open class ListCell<T> : UICollectionViewCell {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
+        createViews()
+    }
+    
+    open func createViews() {
+        
         
     }
     

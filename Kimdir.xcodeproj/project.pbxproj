@@ -12,6 +12,8 @@
 		321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321CC05325EBEF6A00117FBC /* Bindable.swift */; };
 		3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3226024425EEBE2C004B0F3E /* ProfileController.swift */; };
 		3226024825EEE0C9004B0F3E /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3226024725EEE0C9004B0F3E /* ProfileCell.swift */; };
+		32411E0326A9D73200927DA9 /* MessagesAndMatchesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32411E0226A9D73200927DA9 /* MessagesAndMatchesController.swift */; };
+		32411E0526A9E7C100927DA9 /* MatchesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */; };
 		3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6425F95737009BFAD1 /* LoginViewModel.swift */; };
 		3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6825F95A82009BFAD1 /* LoginController.swift */; };
 		329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B025D990AA002D80CE /* AppDelegate.swift */; };
@@ -59,6 +61,8 @@
 		321CC05325EBEF6A00117FBC /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		3226024425EEBE2C004B0F3E /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		3226024725EEE0C9004B0F3E /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		32411E0226A9D73200927DA9 /* MessagesAndMatchesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesAndMatchesController.swift; sourceTree = "<group>"; };
+		32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesNavBar.swift; sourceTree = "<group>"; };
 		3248CF6425F95737009BFAD1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3248CF6825F95A82009BFAD1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		329B70AD25D990AA002D80CE /* Kimdir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimdir.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +129,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		32411E0126A9D70F00927DA9 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				32411E0226A9D73200927DA9 /* MessagesAndMatchesController.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
 		3248CF6325F95716009BFAD1 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +195,7 @@
 		32A35AAC25DEFD6000200916 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				32411E0126A9D70F00927DA9 /* Messages */,
 				32D1E42D25FAB4C0003273CD /* UserInfo */,
 				3248CF6325F95716009BFAD1 /* Login */,
 				329B70B425D990AA002D80CE /* MainViewController.swift */,
@@ -237,6 +250,7 @@
 				32BEB96226A36BD900ECBD5E /* KSButton.swift */,
 				32A0D08226A4862300B4A01D /* CircularImageView.swift */,
 				32A0D08426A4AB6800B4A01D /* ListCell.swift */,
+				32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -410,7 +424,9 @@
 				32A0D08726A4AE0A00B4A01D /* ListHeaderAndFooterController.swift in Sources */,
 				3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */,
 				32A0D08526A4AB6800B4A01D /* ListCell.swift in Sources */,
+				32411E0326A9D73200927DA9 /* MessagesAndMatchesController.swift in Sources */,
 				32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */,
+				32411E0526A9E7C100927DA9 /* MatchesNavBar.swift in Sources */,
 				32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
