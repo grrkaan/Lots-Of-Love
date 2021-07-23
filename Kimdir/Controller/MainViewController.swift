@@ -137,6 +137,7 @@ class MainViewController: UIViewController {
                 let user = User(datas: userData)
                 let isThatMe = user.userId == Auth.auth().currentUser?.uid
             
+                self.users[user.userId ?? ""] = user
                 
                 // let swipeCheck = self.swipeDatas[user.userId] != nil
                 let swipeCheck = false
@@ -271,7 +272,7 @@ class MainViewController: UIViewController {
     
     
     
-    
+    var users = [String : User]()
     var lastProfileView : ProfileView?
     @objc func likeBtnPressed() {
         
@@ -380,10 +381,39 @@ class MainViewController: UIViewController {
                 print("It's match LOVERS")
                 self.getMatchView(loverID: loverID)
                 
+                
+                guard let lover = self.users[loverID] else { return }
+                let matchData = ["UserName" : lover.userName ?? "",
+                                 "ImgUrlFirst" : lover.profileImgUrlFirst ?? "",
+                                 "UserId" : loverID,
+                                 "CreationDate" : Timestamp(date: Date())] as [String : Any]
+                
+                
+                Firestore.firestore().collection("Messages").document(userID).collection("Matches").document(loverID).setData(matchData) { (error) in
+                    
+                    if let error = error {
+                        print("Error when creating match datas \(error.localizedDescription)")
+                    }
+                    
+                }
+                
+                guard let currentUser = self.currentUser else { return }
+                let matchData4Lover = ["UserName" : currentUser.userName ?? "",
+                                       "ImgUrlFirst" : currentUser.profileImgUrlFirst ?? "",
+                                       "UserId" : currentUser.userId,
+                                       "CreationDate" : Timestamp(date: Date())] as [String : Any]
+                
+                
+                Firestore.firestore().collection("Messages").document(loverID).collection("Matches").document(userID).setData(matchData4Lover) { (error) in
+                    
+                    if let error = error {
+                        print("Error when creating match datas \(error.localizedDescription)")
+                    }
+                    
+                }
+                
+                
             }
-            
-            
-            
             
         }
         

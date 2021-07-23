@@ -16,6 +16,7 @@
 		32411E0526A9E7C100927DA9 /* MatchesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */; };
 		3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6425F95737009BFAD1 /* LoginViewModel.swift */; };
 		3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3248CF6825F95A82009BFAD1 /* LoginController.swift */; };
+		3286D15A26AB4B87003CD6F6 /* MessageSaveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3286D15926AB4B87003CD6F6 /* MessageSaveController.swift */; };
 		329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B025D990AA002D80CE /* AppDelegate.swift */; };
 		329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B225D990AA002D80CE /* SceneDelegate.swift */; };
 		329B70B525D990AA002D80CE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 329B70B425D990AA002D80CE /* MainViewController.swift */; };
@@ -65,6 +66,7 @@
 		32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesNavBar.swift; sourceTree = "<group>"; };
 		3248CF6425F95737009BFAD1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		3248CF6825F95A82009BFAD1 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		3286D15926AB4B87003CD6F6 /* MessageSaveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSaveController.swift; sourceTree = "<group>"; };
 		329B70AD25D990AA002D80CE /* Kimdir.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kimdir.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		329B70B025D990AA002D80CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		329B70B225D990AA002D80CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				32411E0226A9D73200927DA9 /* MessagesAndMatchesController.swift */,
+				3286D15926AB4B87003CD6F6 /* MessageSaveController.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				32A0D07B26A47ACF00B4A01D /* StackViewExtension.swift in Sources */,
 				32A0D08326A4862300B4A01D /* CircularImageView.swift in Sources */,
 				329B70B325D990AA002D80CE /* SceneDelegate.swift in Sources */,
+				3286D15A26AB4B87003CD6F6 /* MessageSaveController.swift in Sources */,
 				32A0D08726A4AE0A00B4A01D /* ListHeaderAndFooterController.swift in Sources */,
 				3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */,
 				32A0D08526A4AB6800B4A01D /* ListCell.swift in Sources */,

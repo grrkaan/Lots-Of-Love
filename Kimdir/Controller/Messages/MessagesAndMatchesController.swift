@@ -125,3 +125,12 @@ class MessagesAndMatchesController : ListController<MatchCell,Match>, UICollecti
     
 }
  
+extension MessagesAndMatchesController {
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let messageSaveController = MessageSaveController()
+        navigationController?.pushViewController(messageSaveController, animated: true)
+    }
+    
+    
+}
