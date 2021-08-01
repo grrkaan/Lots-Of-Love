@@ -137,7 +137,7 @@ class MainViewController: UIViewController {
                 let user = User(datas: userData)
                 let isThatMe = user.userId == Auth.auth().currentUser?.uid
             
-                self.users[user.userId ?? ""] = user
+                self.users[user.userId] = user
                 
                 // let swipeCheck = self.swipeDatas[user.userId] != nil
                 let swipeCheck = false

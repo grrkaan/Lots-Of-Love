@@ -47,6 +47,7 @@
 		32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */; };
 		32B5A56025D9BB52002F9694 /* MainBoardBottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */; };
 		32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */; };
+		32B7A56C26B6D1C100763B76 /* MessageNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7A56B26B6D1C100763B76 /* MessageNavBar.swift */; };
 		32BEB95F26A34A9E00ECBD5E /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB95E26A34A9E00ECBD5E /* MatchView.swift */; };
 		32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96026A368B800ECBD5E /* DMButton.swift */; };
 		32BEB96326A36BD900ECBD5E /* KSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96226A36BD900ECBD5E /* KSButton.swift */; };
@@ -99,6 +100,7 @@
 		32B5A55A25D9AE13002F9694 /* Extensions&UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions&UI.swift"; sourceTree = "<group>"; };
 		32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardBottomStackView.swift; sourceTree = "<group>"; };
 		32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBoardTopStackView.swift; sourceTree = "<group>"; };
+		32B7A56B26B6D1C100763B76 /* MessageNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNavBar.swift; sourceTree = "<group>"; };
 		32BEB95E26A34A9E00ECBD5E /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		32BEB96026A368B800ECBD5E /* DMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButton.swift; sourceTree = "<group>"; };
 		32BEB96226A36BD900ECBD5E /* KSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSButton.swift; sourceTree = "<group>"; };
@@ -242,6 +244,7 @@
 		32B5A55E25D9BB11002F9694 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				32B7A56A26B6D19200763B76 /* MatchesAndMessages */,
 				32B5A55F25D9BB52002F9694 /* MainBoardBottomStackView.swift */,
 				32B5A56325D9BC1F002F9694 /* MainBoardTopStackView.swift */,
 				32A5CE2F25DB0EFD0037EA61 /* ProfileView.swift */,
@@ -256,6 +259,14 @@
 				32411E0426A9E7C100927DA9 /* MatchesNavBar.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		32B7A56A26B6D19200763B76 /* MatchesAndMessages */ = {
+			isa = PBXGroup;
+			children = (
+				32B7A56B26B6D1C100763B76 /* MessageNavBar.swift */,
+			);
+			path = MatchesAndMessages;
 			sourceTree = "<group>";
 		};
 		32D1E42D25FAB4C0003273CD /* UserInfo */ = {
@@ -429,6 +440,7 @@
 				3248CF6525F95737009BFAD1 /* LoginViewModel.swift in Sources */,
 				32A0D08526A4AB6800B4A01D /* ListCell.swift in Sources */,
 				32411E0326A9D73200927DA9 /* MessagesAndMatchesController.swift in Sources */,
+				32B7A56C26B6D1C100763B76 /* MessageNavBar.swift in Sources */,
 				32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */,
 				32411E0526A9E7C100927DA9 /* MatchesNavBar.swift in Sources */,
 				32A5CE3025DB0EFD0037EA61 /* ProfileView.swift in Sources */,
