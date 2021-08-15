@@ -10,52 +10,23 @@ import UIKit
 import Firebase
 
 
-struct Match {
-    let userName : String
-    let profileImgUrl : String
-    let userId : String
+class MessagesAndMatchesController : ListHeaderController<MatchCell,Match,MatchHeader>, UICollectionViewDelegateFlowLayout {
     
-    init(data : [String : Any]) {
-        self.userName = data["UserName"] as? String ?? ""
-        self.profileImgUrl = data["ImgUrlFirst"] as? String ?? ""
-        self.userId = data["UserId"] as? String ?? ""
+    
+    
+    override func setHeader(_ header: MatchHeader) {
+        header.matchesHorizontalController.rootMatchesAndMessagesController = self
     }
     
-    
-}
-
-
-class  MatchCell: ListCell<Match> {
-    
-    let profileImg = UIImageView(UIImage(named: "riri-1")!, contentMode: .scaleAspectFill)
-    let lblUsername = UILabel(text: "Rihanna", font: .systemFont(ofSize: 15), textColor: .darkGray, textAlignment: .center, numberOfLines: 2)
-    
-   
-    override var data: Match!{
-        didSet{
-            lblUsername.text = data.userName
-            profileImg.sd_setImage(with: URL(string: data.profileImgUrl))
-        }
-    
-    
-
+    func headerMatchSelect(match : Match) {
+        let messageSC = MessageSaveController(match: match)
+        navigationController?.pushViewController(messageSC, animated: true)
     }
     
-    override func createViews() {
-        super.createViews()
-       
-        profileImg.clipsToBounds = true
-        profileImg.resizing(.init(width: 80, height: 80))
-        profileImg.layer.cornerRadius = 40
-        createStackView(createStackView(profileImg,alignment: .center),lblUsername)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: view.frame.width, height: 250)
     }
     
-}
-
-
-class MessagesAndMatchesController : ListController<MatchCell,Match>, UICollectionViewDelegateFlowLayout {
-    
-   
     
     let navBar = MatchesNavBar()
     

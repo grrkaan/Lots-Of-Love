@@ -60,12 +60,12 @@ open class ListHeaderAndFooterController <T : ListCell<U>, U, H : UICollectionRe
         return cell
     }
     
-    open func setHeader() {
+    open func setHeader(_ header : H) {
         
     }
     
     
-    open func setFooter() {
+    open func setFooter(_ footer : F) {
         
     }
     
@@ -75,11 +75,11 @@ open class ListHeaderAndFooterController <T : ListCell<U>, U, H : UICollectionRe
         let extraView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: extraViewID, for: indexPath)
         
         
-        if let _ = extraView as? H {
-            setHeader()
+        if let header = extraView as? H {
+            setHeader(header)
         
-        }else if let _ = extraView as? F {
-            setFooter()
+        }else if let footer = extraView as? F {
+            setFooter(footer)
         }
         
         return extraView
