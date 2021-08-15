@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31CA0CE2E5C0C7670F169CEC /* Pods_Kimdir.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEFF4BF8E71EE756E9C55248 /* Pods_Kimdir.framework */; };
+		3216928626C9345200AB86A8 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3216928526C9345200AB86A8 /* Message.swift */; };
 		321CC05025EBE43500117FBC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 321CC04F25EBE43500117FBC /* GoogleService-Info.plist */; };
 		321CC05425EBEF6A00117FBC /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 321CC05325EBEF6A00117FBC /* Bindable.swift */; };
 		3226024525EEBE2C004B0F3E /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3226024425EEBE2C004B0F3E /* ProfileController.swift */; };
@@ -59,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		1E1F9725212A26F0F9C2FF10 /* Pods-Kimdir.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kimdir.debug.xcconfig"; path = "Target Support Files/Pods-Kimdir/Pods-Kimdir.debug.xcconfig"; sourceTree = "<group>"; };
+		3216928526C9345200AB86A8 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		321CC04F25EBE43500117FBC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		321CC05325EBEF6A00117FBC /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		3226024425EEBE2C004B0F3E /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 			children = (
 				32A35AA825DEF24000200916 /* User.swift */,
 				32C1A74425E64A06004A484D /* Advertisement.swift */,
+				3216928526C9345200AB86A8 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 				329B70B125D990AA002D80CE /* AppDelegate.swift in Sources */,
 				3248CF6925F95A82009BFAD1 /* LoginController.swift in Sources */,
 				32A35AA925DEF24000200916 /* User.swift in Sources */,
+				3216928626C9345200AB86A8 /* Message.swift in Sources */,
 				32A0D08B26A4B4A900B4A01D /* ListController.swift in Sources */,
 				32A0D08126A4808F00B4A01D /* UIView&StackExtension.swift in Sources */,
 				32B5A55B25D9AE13002F9694 /* Extensions&UI.swift in Sources */,

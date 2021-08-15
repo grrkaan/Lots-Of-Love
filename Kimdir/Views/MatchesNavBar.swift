@@ -11,7 +11,7 @@ import UIKit
 class MatchesNavBar : UIView {
    
     
-    let btnBack = UIButton(image: UIImage(named: "alev")!, tintColor: .lightGray)
+    let btnBack = UIButton(image: UIImage(named: "back")!, tintColor: .lightGray)
     override init(frame: CGRect) {
         super.init(frame: frame)
         

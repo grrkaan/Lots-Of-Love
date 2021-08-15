@@ -7,12 +7,10 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 
-struct Message {
-    let text : String
-    let myDM : Bool
-}
+
 
 
 class MessageCell : ListCell<Message> {
@@ -32,17 +30,17 @@ class MessageCell : ListCell<Message> {
     }()
     override var data : Message! {
         didSet{
-            txtMessage.text = data.text
+            txtMessage.text = data.message
             
             if data.myDM {
-                messageConst.leading?.isActive = true
-                messageConst.trailing?.isActive = false
+                messageConst.leading?.isActive = false
+                messageConst.trailing?.isActive = true
                 messageContainer.backgroundColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
                 txtMessage.textColor = .white
                 
             }else {
-                messageConst.leading?.isActive = false
-                messageConst.trailing?.isActive = true
+                messageConst.leading?.isActive = true
+                messageConst.trailing?.isActive = false
                 messageContainer.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
                 txtMessage.textColor = .black
             }
@@ -91,8 +89,9 @@ class MessageSaveController : ListController<MessageCell,Message> {
     class KeyboardView : UIView {
         
         let txtMessage = UITextView()
-//        let btnSend = UIButton(title: "Send", titleColor: .black, titleFont: .boldSystemFont(ofSize: 17))
-        let btnSend = UIButton(image: #imageLiteral(resourceName: "alev"),tintColor: .lightGray)
+        let btnSend = UIButton(title: "Send", titleColor: .black, titleFont: .boldSystemFont(ofSize: 17))
+        
+//        let btnSend = UIButton(image: #imageLiteral(resourceName: "alev"),tintColor: .lightGray)
 
         let lblPlaceholder = UILabel(text: "Send Message...", font: .systemFont(ofSize: 16), textColor: .lightGray)
         
@@ -104,6 +103,10 @@ class MessageSaveController : ListController<MessageCell,Message> {
         override init(frame: CGRect) {
             super.init(frame: frame)
   
+            btnSend.layer.cornerRadius = 10
+//            btnSend.backgroundColor = .lightGray
+            btnSend.addBorder(width: 1, color: .lightGray)
+            
             backgroundColor = .white
             addShadow(opacity: 0.1, radius: 8, offset: .init(width: 0, height: -9), color: .lightGray)
             autoresizingMask = .flexibleHeight
@@ -139,16 +142,61 @@ class MessageSaveController : ListController<MessageCell,Message> {
     }
     
     
-    lazy var blueView : UIView = {
+    lazy var messageSubmitView : KeyboardView = {
  
-        return KeyboardView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 50))
+        let messageSubmitView = KeyboardView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 50))
+        
+        messageSubmitView.btnSend.addTarget(self, action: #selector(btnSubmitPressed), for: .touchUpInside)
+        
+        return messageSubmitView
     }()
+    
+    
+    @objc func btnSubmitPressed() {
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let collection = Firestore.firestore().collection("Messages").document(currentUserId).collection(match.userId)
+        
+        let data = ["Message" : messageSubmitView.txtMessage.text ?? "",
+                    "CurrentUserId" : currentUserId,
+                    "LoverId" : match.userId ,
+                    "Timestamp" : Timestamp(date: Date())] as [ String : Any]
+        
+        
+        collection.addDocument(data: data) { (error) in
+            
+            if let error = error {
+                print("Getting error when sending message \(error.localizedDescription)" )
+                return
+            }
+            
+            self.messageSubmitView.txtMessage.text = nil
+            self.messageSubmitView.lblPlaceholder.isHidden = false
+            
+        }
+        
+        let collection2 =  Firestore.firestore().collection("Messages").document(match.userId).collection(currentUserId)
+        
+        collection2.addDocument(data: data) { (error) in
+            
+            if let error = error {
+                print("Getting error when sending message \(error.localizedDescription)" )
+                return
+            }
+            
+            self.messageSubmitView.txtMessage.text = nil
+            self.messageSubmitView.lblPlaceholder.isHidden = false
+            
+        }
+        
+    }
+    
     
     override var inputAccessoryView: UIView? {
         
         get {
             
-            return blueView
+            return messageSubmitView
             
         }
     }
@@ -157,25 +205,53 @@ class MessageSaveController : ListController<MessageCell,Message> {
         return true
     }
     
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisplayConfigure), name: UIResponder.keyboardDidShowNotification, object: nil)
         
         collectionView.keyboardDismissMode = .interactive
         navBar.backBtn.addTarget(self, action: #selector(btnBackPressed), for: .touchUpInside)
         navBar.btnFlag.addTarget(self, action: #selector(btnFlagPressed), for: .touchUpInside)
         
-        datas = [
-            .init(text: "Hey there, thanks for the follow! As one of the crew, we’ve got a special gift for you",myDM: true),
-            .init(text: "Greetings, citizen! We thought you might be interested to be among the first to see our new product teaser, here.",myDM: false),
-            .init(text: "Thanks for the follow, friend! We use Twitter for news and service, but if you have Facebook, you can follow us there for deeper content too!",myDM: true),
-            .init(text: "Like what you see? If fashion is your thing, check out our Instagram as well!",myDM: false)
-        ]
+        getMessages()
         
         createDesign()
         
         
+    }
+    
+    
+    @objc func keyboardDisplayConfigure() {
+        self.collectionView.scrollToItem(at: [0,datas.count-1], at: .bottom, animated: true)
+    }
+    
+    fileprivate func getMessages() {
+        
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        let query = Firestore.firestore().collection("Messages").document(currentUserId).collection(match.userId).order(by: "Timestamp")
+        
+        query.addSnapshotListener { (snapshot, error) in
+            
+            if let error = error {
+                print("Getting error when getting messages \(error.localizedDescription)" )
+                return
+            }
+            
+            snapshot?.documentChanges.forEach({ (changes) in
+                
+                if changes.type == .added {
+                    let messageData = changes.document.data()
+                    self.datas.append(.init(messageData: messageData))
+                }
+                
+            })
+            
+            self.collectionView.reloadData()
+            self.collectionView.scrollToItem(at: [0,self.datas.count-1], at: .bottom, animated: true)
+           
+        }
     }
     
     fileprivate func createDesign() {

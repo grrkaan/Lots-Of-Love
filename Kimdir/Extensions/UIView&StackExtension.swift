@@ -60,7 +60,7 @@ extension UIView {
         return self
     }
     
-    
+    @discardableResult
     func addBorder<T : UIView>(width : CGFloat, color : UIColor) -> T {
         
         layer.borderWidth = width

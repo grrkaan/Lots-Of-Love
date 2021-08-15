@@ -55,7 +55,7 @@ class ImageSwipeController: UIPageViewController {
                 
                 let nextIndex = min(controllers.count - 1, index + 1)
                 let nextController = controllers[nextIndex]
-                setViewControllers([nextController], direction: .forward, animated: false)
+                setViewControllers([nextController], direction: .reverse, animated: false)
                 barStackView.arrangedSubviews[nextIndex].backgroundColor = .white
                 
             }else {
