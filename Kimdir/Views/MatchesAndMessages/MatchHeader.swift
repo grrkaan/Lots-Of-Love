@@ -22,7 +22,8 @@ class MatchHeader: UICollectionReusableView {
         createStackView(createStackView(lblHotMatches).padLeft(22),
                         matchesHorizontalController.view,
                         createStackView(lblMessages).padLeft(22),
-                        spacing: 22).withMarging(.init(top: 22, left: 0, bottom: 22, right: 0))
+                        spacing: 22).withMarging(.init(top: 22, left: 0, bottom: 5, right: 0))
+        
     }
     
     required init?(coder: NSCoder) {
