@@ -22,9 +22,9 @@ class MatchesNavBar : UIView {
         
         let lblMessages = UILabel(text: "Messages", font: .boldSystemFont(ofSize: 21), textColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1), textAlignment: .center)
         
-        let lblFeed = UILabel(text: "Feed", font: .boldSystemFont(ofSize: 21), textColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), textAlignment: .center)
+//        let lblFeed = UILabel(text: "Feed", font: .boldSystemFont(ofSize: 21), textColor: #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1), textAlignment: .center)
         
-        createStackView(dmIcon.setHeight(40),createHorizontalStackView(lblMessages,lblFeed,distribution: .fillEqually).padTop(10))
+        createStackView(dmIcon.setHeight(40),createHorizontalStackView(lblMessages,distribution: .fillEqually).padTop(10))
         
         addShadow(opacity: 0.15, radius: 10, offset: .init(width: 0, height: 10), color: .init(white: 0, alpha: 0.3))
         
@@ -36,7 +36,7 @@ class MatchesNavBar : UIView {
                        trailing: nil,
                        leading: leadingAnchor,
                        padding: .init(top: 12, left: 12, bottom: 0, right: 0),
-                       size: .init(width: 35, height: 35))
+                       size: .init(width: 45, height: 45))
         
         
     }

@@ -57,6 +57,7 @@
 		32BEB95F26A34A9E00ECBD5E /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB95E26A34A9E00ECBD5E /* MatchView.swift */; };
 		32BEB96126A368B800ECBD5E /* DMButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96026A368B800ECBD5E /* DMButton.swift */; };
 		32BEB96326A36BD900ECBD5E /* KSButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BEB96226A36BD900ECBD5E /* KSButton.swift */; };
+		32C10C2326CC3CA500CE5B07 /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C10C2226CC3CA500CE5B07 /* Notes.swift */; };
 		32C1A74525E64A06004A484D /* Advertisement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C1A74425E64A06004A484D /* Advertisement.swift */; };
 		32D1E42F25FAB4E1003273CD /* ProfileInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */; };
 		32DFE13525F1727C00DD18D2 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */; };
@@ -116,6 +117,7 @@
 		32BEB95E26A34A9E00ECBD5E /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		32BEB96026A368B800ECBD5E /* DMButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DMButton.swift; sourceTree = "<group>"; };
 		32BEB96226A36BD900ECBD5E /* KSButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KSButton.swift; sourceTree = "<group>"; };
+		32C10C2226CC3CA500CE5B07 /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		32C1A74425E64A06004A484D /* Advertisement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertisement.swift; sourceTree = "<group>"; };
 		32D1E42E25FAB4E1003273CD /* ProfileInfoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoController.swift; sourceTree = "<group>"; };
 		32DFE13425F1727C00DD18D2 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				32A0D07C26A47C6600B4A01D /* TextFieldExtension.swift */,
 				32A0D07E26A47CD300B4A01D /* TextViewExtension.swift */,
 				32A0D08026A4808F00B4A01D /* UIView&StackExtension.swift */,
+				32C10C2226CC3CA500CE5B07 /* Notes.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				32A0D07F26A47CD300B4A01D /* TextViewExtension.swift in Sources */,
+				32C10C2326CC3CA500CE5B07 /* Notes.swift in Sources */,
 				329B70B525D990AA002D80CE /* MainViewController.swift in Sources */,
 				32B5A56425D9BC1F002F9694 /* MainBoardTopStackView.swift in Sources */,
 				32B2348C25EAB838003D02C7 /* RegisterController.swift in Sources */,

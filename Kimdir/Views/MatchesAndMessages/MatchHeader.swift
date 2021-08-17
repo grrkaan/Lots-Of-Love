@@ -13,7 +13,7 @@ class MatchHeader: UICollectionReusableView {
     
     
     let lblHotMatches = UILabel(text: "Hot Matches", font: .boldSystemFont(ofSize: 19), textColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
-    let lblMessages = UILabel(text: "Messages", font: .boldSystemFont(ofSize: 19), textColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
+    let lblMessages = UILabel(text: "Last DM's", font: .boldSystemFont(ofSize: 19), textColor: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
     let matchesHorizontalController = MatchesHorizontalController()
     
     override init(frame: CGRect) {

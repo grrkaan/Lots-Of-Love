@@ -10,11 +10,6 @@ import UIKit
 import Firebase
 
 
-
-
-
-
-
 class MessageSaveController : ListController<MessageCell,Message> {
     
     fileprivate lazy var  navBar = MessageNavBar(match: match)
@@ -34,9 +29,6 @@ class MessageSaveController : ListController<MessageCell,Message> {
         
         let txtMessage = UITextView()
         let btnSend = UIButton(title: "Send", titleColor: .black, titleFont: .boldSystemFont(ofSize: 17))
-        
-//        let btnSend = UIButton(image: #imageLiteral(resourceName: "alev"),tintColor: .lightGray)
-
         let lblPlaceholder = UILabel(text: "Send Message...", font: .systemFont(ofSize: 16), textColor: .lightGray)
         
         
@@ -46,9 +38,8 @@ class MessageSaveController : ListController<MessageCell,Message> {
         
         override init(frame: CGRect) {
             super.init(frame: frame)
-  
+            
             btnSend.layer.cornerRadius = 10
-//            btnSend.backgroundColor = .lightGray
             btnSend.addBorder(width: 1, color: .lightGray)
             
             backgroundColor = .white
@@ -62,11 +53,11 @@ class MessageSaveController : ListController<MessageCell,Message> {
             txtMessage.font = .systemFont(ofSize: 17)
             
             NotificationCenter.default.addObserver(self, selector: #selector(txtMessageChanging), name: UITextView.textDidChangeNotification, object: nil)
-    
+            
             createHorizontalStackView(txtMessage,btnSend.resizing(.init(width: 65, height: 65)),alignment: .center).withMarging(.init(top: 0, left: 15, bottom: 0, right: 15))
             
             addSubview(lblPlaceholder)
-            lblPlaceholder.anchor(top: nil, bottom: nil, trailing: btnSend.leadingAnchor, leading: leadingAnchor)
+            lblPlaceholder.anchor(top: nil, bottom: nil, trailing: btnSend.leadingAnchor, leading: leadingAnchor,padding: .init(top: 0, left: 20, bottom: 0, right: 0))
             lblPlaceholder.centerYAnchor.constraint(equalTo: btnSend.centerYAnchor).isActive = true
             
         }
@@ -87,7 +78,7 @@ class MessageSaveController : ListController<MessageCell,Message> {
     
     
     lazy var messageSubmitView : KeyboardView = {
- 
+        
         let messageSubmitView = KeyboardView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 50))
         
         messageSubmitView.btnSend.addTarget(self, action: #selector(btnSubmitPressed), for: .touchUpInside)
@@ -97,7 +88,51 @@ class MessageSaveController : ListController<MessageCell,Message> {
     
     
     @objc func btnSubmitPressed() {
+        saveMessagesFS()
+        saveLastMessageFS()
+    }
+    
+    
+    fileprivate func saveLastMessageFS() {
         
+        guard let currentUserId = Auth.auth().currentUser?.uid else { return }
+        
+        let lastMessageData = ["Message": messageSubmitView.txtMessage.text ?? "",
+                               "UserName": match.userName,
+                               "UserId" : match.userId,
+                               "ImgUrl": match.profileImgUrl] as [String : Any]
+        
+        Firestore.firestore().collection("Messages").document(currentUserId).collection("Last_Messages").document(match.userId).setData(lastMessageData) { (error) in
+            
+            if let error = error {
+                print("Error when saving last message \(error.localizedDescription)")
+                return
+            }
+            
+        }
+        
+        
+        
+        guard let currentUser = self.currentUser else { return }
+        
+        let lastMessageData4Lover = ["Message": messageSubmitView.txtMessage.text ?? "",
+                                     "UserName": currentUser.userName ?? "",
+                                     "UserId" : currentUser.userId ,
+                                     "ImgUrl": currentUser.profileImgUrlFirst ?? ""]
+        
+        
+        Firestore.firestore().collection("Messages").document(match.userId).collection("Last_Messages").document(currentUser.userId).setData(lastMessageData4Lover) { (error) in
+            
+            if let error = error {
+                print("Error when saving last message \(error.localizedDescription)")
+                return
+            }
+            
+        }
+        
+    }
+    
+    fileprivate func saveMessagesFS() {
         guard let currentUserId = Auth.auth().currentUser?.uid else { return }
         let collection = Firestore.firestore().collection("Messages").document(currentUserId).collection(match.userId)
         
@@ -106,33 +141,37 @@ class MessageSaveController : ListController<MessageCell,Message> {
                     "LoverId" : match.userId ,
                     "Timestamp" : Timestamp(date: Date())] as [ String : Any]
         
-        
-        collection.addDocument(data: data) { (error) in
-            
-            if let error = error {
-                print("Getting error when sending message \(error.localizedDescription)" )
-                return
+        if data["Message"] as! String != "" {
+            collection.addDocument(data: data) { (error) in
+                
+                if let error = error {
+                    print("Getting error when sending message \(error.localizedDescription)" )
+                    return
+                }
+                
+                self.messageSubmitView.txtMessage.text = nil
+                self.messageSubmitView.lblPlaceholder.isHidden = false
+                
             }
-            
-            self.messageSubmitView.txtMessage.text = nil
-            self.messageSubmitView.lblPlaceholder.isHidden = false
             
         }
         
         let collection2 =  Firestore.firestore().collection("Messages").document(match.userId).collection(currentUserId)
         
-        collection2.addDocument(data: data) { (error) in
+        if data["Message"] as! String != "" {
             
-            if let error = error {
-                print("Getting error when sending message \(error.localizedDescription)" )
-                return
+            collection2.addDocument(data: data) { (error) in
+                
+                if let error = error {
+                    print("Getting error when sending message \(error.localizedDescription)" )
+                    return
+                }
+                
+                self.messageSubmitView.txtMessage.text = nil
+                self.messageSubmitView.lblPlaceholder.isHidden = false
+                
             }
-            
-            self.messageSubmitView.txtMessage.text = nil
-            self.messageSubmitView.lblPlaceholder.isHidden = false
-            
         }
-        
     }
     
     
@@ -149,10 +188,33 @@ class MessageSaveController : ListController<MessageCell,Message> {
         return true
     }
     
-   
+    
+    
+    var currentUser : User?
+    
+    fileprivate func getCurrentUserData() {
+        
+        let currentUserId = Auth.auth().currentUser?.uid ?? ""
+        
+        Firestore.firestore().collection("Users").document(currentUserId).getDocument { (snapshot,error) in
+            
+            if let error = error {
+                print("Error \(error.localizedDescription)")
+            }
+            
+            
+            let currentUserData = snapshot?.data() ?? [:]
+            self.currentUser = User(datas: currentUserData)
+            
+        }
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCurrentUserData()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDisplayConfigure), name: UIResponder.keyboardDidShowNotification, object: nil)
         
         collectionView.keyboardDismissMode = .interactive
@@ -194,7 +256,7 @@ class MessageSaveController : ListController<MessageCell,Message> {
             
             self.collectionView.reloadData()
             self.collectionView.scrollToItem(at: [0,self.datas.count-1], at: .bottom, animated: true)
-           
+            
         }
     }
     

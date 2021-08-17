@@ -87,12 +87,37 @@ class MessagesAndMatchesController : ListHeaderController<LastMessageCell,LastMe
                     self.lastMessageDictionary[lastMessage.userId] = lastMessage
                 }
                 
+                
+                if changes.type == .removed {
+                    let messageData = changes.document.data()
+                    let removedMessage = LastMessage(data: messageData)
+                    self.lastMessageDictionary.removeValue(forKey: removedMessage.userId)
+                    
+                }
+                
             })
             
             self.resetDatas()
         }
         
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let lastMessage = self.datas[indexPath.row]
+        let matchData = ["UserId" : lastMessage.userId,
+                         "UserName" : lastMessage.userName,
+                         "ImageUrl" : lastMessage.imgUrl]
+        
+        let match = Match(data: matchData)
+        let messageController = MessageSaveController(match: match)
+        
+        navigationController?.pushViewController(messageController, animated: true)
+        
+        
+    }
+    
+    
     
     fileprivate func resetDatas() {
      
